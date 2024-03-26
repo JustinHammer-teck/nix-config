@@ -3,7 +3,11 @@
   home = {
     stateVersion = "23.11";
     username = "moritzzmn";
-    homeDirectory = "/Users/moritzzmn";
+    homeDirectory = "/Users/moritzzmn/";
+    packages = [
+      pkgs.dotnet-sdk_8
+      pkgs.msbuild
+    ];
   };
 
   programs.home-manager.enable = true;

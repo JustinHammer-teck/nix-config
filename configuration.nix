@@ -19,6 +19,7 @@
         pkgs.starship
         pkgs.nil
         pkgs.nixfmt
+        pkgs.neofetch
       ];
 
     # Auto upgrade nix package and the daemon service.
@@ -44,4 +45,6 @@
         name = "moritzzmn";
         home = "/Users/moritzzmn/";
     };
+
+    nix.settings.auto-optimise-store = true;
 }
