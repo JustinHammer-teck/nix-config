@@ -11,8 +11,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, ... }:
-  {
+  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, ... }: {
     darwinConfigurations = {
       Moritzs-MBP = nix-darwin.lib.darwinSystem {
         system = "x86_64-darwin";
