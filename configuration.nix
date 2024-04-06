@@ -13,15 +13,12 @@
     pkgs.ripgrep
     pkgs.direnv
     pkgs.jq
-    pkgs.tree
-    pkgs.zoxide
     pkgs.starship
     pkgs.nil
     pkgs.nixfmt
-    pkgs.neofetch
   ];
 
-  # environment variables 
+  # environment variables
   environment.variables = { NIL_PATH = "${pkgs.nil}/bin/nil"; };
 
   # Auto upgrade nix package and the daemon service.
@@ -47,7 +44,7 @@
     name = "moritzzmn";
     home = "/Users/moritzzmn/";
   };
-  
+
   # Optimize Nix storage 
   nix.settings.auto-optimise-store = true;
   nix.gc = {
@@ -57,6 +54,6 @@
       Hour = 0;
       Minute = 0;
     };
-    options = "--delete-older-than 30d";
+    options = "--delete-older-than 15d";
   };
 }
