@@ -15,7 +15,10 @@
     pkgs.jq
     pkgs.starship
     pkgs.nil
-    pkgs.nixfmt
+    pkgs.eza
+    pkgs.delta
+    pkgs.nixfmt-classic
+    pkgs.zoxide
   ];
 
   # environment variables
