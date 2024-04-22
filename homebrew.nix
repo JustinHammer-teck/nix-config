@@ -9,8 +9,13 @@
   # Automatically use the Brewfile that this module generates in the Nix store
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.global.brewfile
   homebrew.global.brewfile = true;
+  homebrew.global.lockfiles = false;
 
-  homebrew.onActivation.autoUpdate = true;
+  homebrew.onActivation = {
+    autoUpdate = false;
+    cleanup = "zap";
+    upgrade = true;
+  };
   #homebrew.taps = [
   #  "homebrew/cask-fonts"
   #  "homebrew/cask-versions"
@@ -19,9 +24,10 @@
 
   # List of Homebrew formulae to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.brews
-  #homebrew.brews = [
-  #];
-
+  homebrew.brews = [
+    "trash"
+  ];
+    
   # List of Homebrew casks to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.casks
   homebrew.casks = [

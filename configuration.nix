@@ -19,6 +19,7 @@
     pkgs.delta
     pkgs.nixfmt-classic
     pkgs.zoxide
+    pkgs.gnupg # Encryption
   ];
 
   # environment variables
