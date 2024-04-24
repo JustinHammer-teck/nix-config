@@ -16,15 +16,18 @@
     cleanup = "zap";
     upgrade = true;
   };
-  #homebrew.taps = [
+
+  homebrew.taps = [
+    "cfergeau/crc"
   #  "homebrew/cask-fonts"
   #  "homebrew/cask-versions"
   #  "homebrew/services"
-  #];
+  ];
 
   # List of Homebrew formulae to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.brews
   homebrew.brews = [
+    "vfkit"
     "trash"
   ];
     

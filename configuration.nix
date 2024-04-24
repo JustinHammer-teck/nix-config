@@ -6,6 +6,7 @@
   environment.systemPackages = [
     pkgs.neovim
     pkgs.podman
+    pkgs.podman-tui
     pkgs.podman-compose
     pkgs.qemu
     pkgs.bat
@@ -40,6 +41,8 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
+
+  security.pam.enableSudoTouchIdAuth = true;
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "x86_64-darwin";
