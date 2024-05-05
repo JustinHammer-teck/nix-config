@@ -11,6 +11,8 @@
   programs.home-manager.enable = true;
   programs.direnv.enable = true;
   programs.direnv.enableZshIntegration = true;
+  programs.direnv.nix-direnv.enable = true;
+
   #programs.tmux = {
   #  enable = true;
   #  terminal = "screen-256color";

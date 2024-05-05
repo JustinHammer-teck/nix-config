@@ -54,12 +54,12 @@
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "x86_64-darwin";
 
-  # Necessary for using flakes on this system.
 
   # Optimize Nix storage 
   nix = {
     settings = {
       auto-optimise-store = true;
+      # Necessary for using flakes on this system.
       experimental-features = "nix-command flakes";
     };
     gc = {
