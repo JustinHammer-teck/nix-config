@@ -19,18 +19,15 @@
 
   homebrew.taps = [
     "cfergeau/crc"
-  #  "homebrew/cask-fonts"
-  #  "homebrew/cask-versions"
-  #  "homebrew/services"
+    #  "homebrew/cask-fonts"
+    #  "homebrew/cask-versions"
+    #  "homebrew/services"
   ];
 
   # List of Homebrew formulae to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.brews
-  homebrew.brews = [
-    "vfkit"
-    "trash"
-  ];
-    
+  homebrew.brews = [ "vfkit" "trash" ];
+
   # List of Homebrew casks to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.casks
   homebrew.casks = [
@@ -43,5 +40,6 @@
     "vscodium"
     "syncthing"
     "rider"
+    "lulu"
   ];
 }

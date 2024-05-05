@@ -1,35 +1,51 @@
+#
+#  flake.nix *
+#   ├─ ./darwin
+#   │   └─ default.nix
+#
+
 {
-  description = "Example Darwin system flake";
+  description = "Nix, NixOS and Nix Darwin System Flake Configuration";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs =
+    {
+      nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11"; # Nix Packages (Default)
+      nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
 
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+      # User Environment Manager
+      home-manager = {
+        url = "github:nix-community/home-manager/release-23.11";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-  };
+      # Unstable User Environment Manager
+      home-manager-unstable = {
+        url = "github:nix-community/home-manager";
+        inputs.nixpkgs.follows = "nixpkgs-unstable";
+      };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, ... }: {
-    darwinConfigurations = {
-      Moritzs-MBP = nix-darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
-        modules = [
-          ./configuration.nix
-          ./homebrew.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.moritzzmn = import ./home.nix;
-
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
-          }
-        ];
-        specialArgs = { inherit inputs; };
+      # MacOS Package Management
+      darwin = {
+        url = "github:lnl7/nix-darwin/master";
+        inputs.nixpkgs.follows = "nixpkgs-unstable";
       };
     };
-  };
+
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, home-manager-unstable, darwin, ... }: # Function telling flake which inputs to use
+    let
+      # Variables Used In Flake
+      vars = {
+        terminal = "kitty";
+        editor = "nvim";
+      };
+    in
+    {
+
+      darwinConfigurations = (
+        import ./darwin/default.nix {
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs-unstable home-manager-unstable darwin vars;
+        }
+      );
+    };
 }
