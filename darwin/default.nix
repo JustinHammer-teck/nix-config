@@ -12,6 +12,7 @@ in {
     specialArgs = { inherit inputs pkgs; };
     modules = [
       ./configuration.nix
+      ./packages.nix
       ./homebrew.nix
       home-manager-unstable.darwinModules.home-manager
       {

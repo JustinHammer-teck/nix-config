@@ -26,7 +26,7 @@
 
   # List of Homebrew formulae to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.brews
-  homebrew.brews = [ "vfkit" "trash" ];
+  homebrew.brews = [ "vfkit" "trash" ]; # vfkit is needed for podman 5.*.*
 
   # List of Homebrew casks to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.casks
@@ -41,5 +41,7 @@
     "syncthing"
     "rider"
     "lulu"
+    "tor-browser"
+    "alacritty"
   ];
 }

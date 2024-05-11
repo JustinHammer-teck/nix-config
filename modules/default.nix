@@ -1,5 +1,4 @@
-#
-#  Shell
+# Shell
 #
 #  flake.nix
 #   ├─ ./hosts
@@ -10,7 +9,4 @@
 #           └─ ...
 #
 
-[
-  ./git.nix
-  ./direnv.nix
-]
+[ ./git.nix ./direnv.nix ]

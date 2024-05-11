@@ -1,5 +1,4 @@
-#
-#  Direnv
+# Direnv
 #
 #  Create shell.nix
 #  Create .envrc and add "use nix"
