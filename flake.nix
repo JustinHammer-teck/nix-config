@@ -41,7 +41,7 @@
       };
     in {
 
-      darwinConfigurations = (import ./darwin/default.nix {
+      darwinConfigurations = (import ./host/imbp/default.nix {
         inherit (nixpkgs) lib;
         inherit inputs nixpkgs-unstable home-manager-unstable darwin vars;
       });

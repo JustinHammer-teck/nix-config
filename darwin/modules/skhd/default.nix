@@ -1,4 +1,4 @@
-{ pkgs, config, lib, home-manager, ... }:
+{ pkgs, config, lib, home-manager-unstable, home, ... }:
 
 {
   options.services.skhd = {
@@ -12,7 +12,7 @@
   config = {
     home.file.".config/skhd/skhdrc" = lib.mkIf config.services.skhd.enable {
       text = lib.strings.concatStrings (lib.strings.intersperse "\n"
-        (map builtins.readFile (map (filename: ./configs + "/${filename}")
+        (map builtins.readFile (map (filename: ./configs/skhd + "/${filename}")
           config.services.skhd.components)));
       onChange = "${pkgs.killall}/bin/killall skhd";
     };

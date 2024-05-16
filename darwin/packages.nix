@@ -23,19 +23,17 @@
       gnupg # Encryption
       tailscale
       fastfetch
-
-      #stuff
-      yabai
-      skhd
     ];
     # environment variables
-    variables = { NIL_PATH = "${pkgs.nil}/bin/nil"; };
+    variables = {
+      NIL_PATH = "${pkgs.nil}/bin/nil";
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+    };
   };
 
   services = {
     nix-daemon.enable = true;
     tailscale.enable = true;
-    skhd.enable = true;
-    yabai.enable = true;
   };
 }

@@ -42,6 +42,5 @@
     "rider"
     "lulu"
     "tor-browser"
-    "alacritty"
   ];
 }

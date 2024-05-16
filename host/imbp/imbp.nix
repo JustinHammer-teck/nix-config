@@ -1,11 +1,4 @@
-# configuration.nix
-
 { pkgs, ... }: {
-
-  imports = [
-    ./modules/yabai
-    ./modules/skhd
-  ];
 
   # User configuration
   users.users.moritzzmn = {

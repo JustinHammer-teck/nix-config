@@ -5,7 +5,7 @@
 
   config = {
     home.file.".config/yabai/yabairc" = lib.mkIf config.services.yabai.enable {
-      source = ./yabairc;
+      target = ".config/yabai/yabairc";
       onChange = "${pkgs.killall}/bin/killall yabai";
     };
   };
