@@ -2,16 +2,15 @@
   # This is required information for home-manager to do its job
 
   imports = [ 
-    #./modules/yabai 
-    ./modules/skhd 
-    ./../modules/alacritty 
+    ./../modules/services/podman
+    ./../modules/terminals/wezterm
   ];
 
   home = {
     stateVersion = "23.11";
     username = "moritzzmn";
     homeDirectory = "/Users/moritzzmn/";
-    packages = with pkgs; [ dotnet-sdk_8 msbuild yabai skhd alacritty ];
+    packages = with pkgs; [ dotnet-sdk_8 msbuild yabai skhd ];
   };
 
   programs.home-manager.enable = true;
@@ -20,8 +19,11 @@
   programs.direnv.nix-direnv.enable = true;
 
   services = {
-   # yabai.enable = true;
-    skhd.enable = false;
+    podman.enable = true;
+  };
+
+  terminals = {
+    wezterm.enable = true;
   };
 
   #programs.tmux = {

@@ -8,6 +8,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11"; # Nix Packages (Default)
+
     nixpkgs-unstable.url =
       "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
 
@@ -36,7 +37,7 @@
     let
       # Variables Used In Flake
       vars = {
-        terminal = "kitty";
+        terminal = "wezterm";
         editor = "nvim";
       };
     in {

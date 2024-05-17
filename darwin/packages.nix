@@ -6,8 +6,6 @@
     # $ nix-env -qaP | grep wget
     systemPackages = with pkgs; [
       neovim
-      podman
-      podman-compose
       qemu
       bat
       git
