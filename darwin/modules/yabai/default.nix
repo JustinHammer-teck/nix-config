@@ -1,12 +1,11 @@
 { pkgs, lib, config, ... }:
 
-{
-  options.services.yabai = { enable = lib.mkEnableOption "yabai"; };
+with lib;
+let cfg = config.services.yabai;
 
+in {
+  options = { services.yabai = { enable = mkEnableOption "yabai"; }; };
   config = {
-    home.file.".config/yabai/yabairc" = lib.mkIf config.services.yabai.enable {
-      target = ".config/yabai/yabairc";
-      onChange = "${pkgs.killall}/bin/killall yabai";
-    };
+    home.file.".config.yabai.yabairc" = mkIf cfg.enable { source = ./yabairc; };
   };
 }

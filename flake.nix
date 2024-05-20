@@ -29,22 +29,25 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    snowfall-lib.url = "github:snowfallorg/lib/dev";
+    snowfall-lib.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager
-    , home-manager-unstable, darwin, ...
-    }: # Function telling flake which inputs to use
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager
+    , home-manager-unstable, darwin, snowfall-lib, ...
+    }@inputs: # Function telling flake which inputs to use
     let
       # Variables Used In Flake
       vars = {
-        terminal = "wezterm";
+        terminal = "tabby";
         editor = "nvim";
       };
     in {
-
       darwinConfigurations = (import ./host/imbp/default.nix {
         inherit (nixpkgs) lib;
-        inherit inputs nixpkgs-unstable home-manager-unstable darwin vars;
+        inherit inputs nixpkgs-unstable home-manager-unstable darwin vars
+          snowfall-lib nixpkgs home-manager;
       });
     };
 }

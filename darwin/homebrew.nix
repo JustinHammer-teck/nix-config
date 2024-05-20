@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, lib, ... }:
 
 {
   # Enable Homebrew
@@ -35,12 +35,9 @@
     "floorp"
     "alex313031-thorium"
     "signal"
-    "tabby"
     "1password"
     "vscodium"
-    "syncthing"
-    "rider"
     "lulu"
-    "tor-browser"
+    "wezterm"
   ];
 }

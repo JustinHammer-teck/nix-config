@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, pkgs-unstable, ... }: {
 
   environment = {
     shells = with pkgs; [ zsh ];
@@ -6,7 +6,6 @@
     # $ nix-env -qaP | grep wget
     systemPackages = with pkgs; [
       neovim
-      qemu
       bat
       git
       ripgrep
@@ -16,11 +15,12 @@
       nil
       eza
       delta
-      nixfmt-classic
+      nixfmt
       zoxide
-      gnupg # Encryption
       tailscale
-      fastfetch
+
+      pkgs-unstable.podman
+      pkgs-unstable.podman-compose
     ];
     # environment variables
     variables = {
