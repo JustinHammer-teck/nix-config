@@ -3,9 +3,10 @@
 
   imports = [
     ./../modules/services/yabai
+    { inherit vars; }
     ./../modules/programs/terminal/zellij
     ./../modules/programs/direnv
-  ] {inherit vars;};
+  ];
 
   config = {
     home = {
