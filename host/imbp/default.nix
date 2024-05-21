@@ -1,5 +1,4 @@
-{ inputs, nixpkgs-unstable, darwin, home-manager-unstable, nixpkgs, home-manager
-, lib, ... }:
+{ inputs, nixpkgs-unstable, darwin, nixpkgs, home-manager, lib, vars, ... }:
 
 let
   system = "x86_64-darwin";
@@ -8,7 +7,7 @@ let
 in {
   imbp = darwin.lib.darwinSystem {
     inherit system;
-    specialArgs = { inherit inputs pkgs pkgs-unstable lib; };
+    specialArgs = { inherit inputs pkgs pkgs-unstable lib vars; };
     modules = [
       ./imbp.nix
       ./../../darwin/homebrew.nix
@@ -18,6 +17,7 @@ in {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.users.moritzzmn = import ./../../darwin/home.nix;
+        home-manager.extraSpecialArgs = { inherit vars; };
         # Optionally, use home-manager.extraSpecialArgs to pass
         # arguments to home.nix
       }

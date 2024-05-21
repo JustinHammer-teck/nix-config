@@ -1,9 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, vars, ... }: {
+
   config = {
     # User configuration
-    users.users.moritzzmn = {
-      name = "moritzzmn";
-      home = "/Users/moritzzmn/";
+    users.users.${vars.user} = {
+      name = "${vars.user}";
+      home = "${vars.home-dir}";
     };
 
     system.defaults = {
@@ -50,8 +51,6 @@
     # Create /etc/zshrc that loads the nix-darwin environment.
     #
     programs.zsh.enable = true; # default shell on catalina
-
-    services.yabai.enable = true;
 
     # programs.fish.enable = true;
 

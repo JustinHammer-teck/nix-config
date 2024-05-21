@@ -1,33 +1,24 @@
-{ inputs, config, pkgs, lib, ... }: {
+{ config, pkgs, vars, ... }: {
   # This is required information for home-manager to do its job
 
   imports = [
-    ./modules/yabai
-  ];
+    ./../modules/services/yabai
+    ./../modules/programs/terminal/zellij
+    ./../modules/programs/direnv
+  ] {inherit vars;};
 
   config = {
     home = {
       stateVersion = "23.11";
-      username = "moritzzmn";
-      homeDirectory = "/Users/moritzzmn/";
-      packages = with pkgs; [ yabai skhd zellij ];
+      username = "${vars.user}";
+      homeDirectory = "${vars.home-dir}";
+      packages = with pkgs; [ skhd direnv ];
     };
 
-    programs = {
-      home-manager.enable = true;
-      direnv.enable = true;
-      direnv.enableZshIntegration = true;
-      direnv.nix-direnv.enable = true;
-    };
-
+    programs.home-manager.enable = true;
+    programs.terminal.zellij.enable = true;
     services.yabai.enable = true;
 
-    #programs.tmux = {
-    #  enable = true;
-    #  terminal = "screen-256color";
-    #  historyLimit = 100000;
-    #  prefix = "C-s";
-    #};
   };
 }
 

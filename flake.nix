@@ -40,14 +40,16 @@
     let
       # Variables Used In Flake
       vars = {
-        terminal = "tabby";
+        user = "moritzzmn";
+        home-dir = "/Users/moritzzmn/";
+        terminal = "wezterm";
         editor = "nvim";
       };
     in {
       darwinConfigurations = (import ./host/imbp/default.nix {
         inherit (nixpkgs) lib;
-        inherit inputs nixpkgs-unstable home-manager-unstable darwin vars
-          snowfall-lib nixpkgs home-manager;
+        inherit inputs nixpkgs-unstable darwin vars snowfall-lib nixpkgs
+          home-manager;
       });
     };
 }
