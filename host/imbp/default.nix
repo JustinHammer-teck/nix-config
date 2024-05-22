@@ -1,4 +1,5 @@
-{ inputs, nixpkgs-unstable, darwin, nixpkgs, home-manager, lib, vars, ... }:
+{ inputs, nixpkgs-unstable, darwin, nixpkgs, home-manager, lib, vars, catppuccin
+, ... }:
 
 let
   system = "x86_64-darwin";
@@ -16,7 +17,10 @@ in {
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        home-manager.users.moritzzmn = import ./../../darwin/home.nix;
+        home-manager.users.moritzzmn = {
+          imports =
+            [ ./../../darwin/home.nix catppuccin.homeManagerModules.catppuccin ];
+        };
         home-manager.extraSpecialArgs = { inherit vars; };
         # Optionally, use home-manager.extraSpecialArgs to pass
         # arguments to home.nix

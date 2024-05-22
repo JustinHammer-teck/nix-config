@@ -8,7 +8,7 @@
     programs.direnv = {
       enable = true;
       package = pkgs.direnv;
-      nix-direnv.enable = true;
+      nix-direnv.enable = false;
       enableZshIntegration = true;
     };
   };

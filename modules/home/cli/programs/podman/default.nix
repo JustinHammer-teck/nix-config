@@ -1,8 +1,8 @@
 { pkgs, pkgs-unstable, vars, lib, config, ... }:
 with lib;
-let cfg = config.cli.programs.podman;
+let cfg = config.programs.cli.podman;
 in {
-  options.cli.programs.podman = { enable = mkEnableOption "Podman Programs"; };
+  options.programs.cli.podman = { enable = mkEnableOption "Podman Programs"; };
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs-unstable; [
       podman # Containers

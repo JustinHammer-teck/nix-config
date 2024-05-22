@@ -1,7 +1,6 @@
 { pkgs, pkgs-unstable, config, lib, vars, ... }: {
-  imports = [ ./../modules/home/desktops/yabai ];
+  imports = [ ./modules/yabai ./../modules/home/cli/programs/podman ];
   config = {
-
     environment = {
       shells = with pkgs; [ zsh ];
       # List packages installed in system profile. To search by name, run:
@@ -19,9 +18,6 @@
         nixfmt
         zoxide
         tailscale
-
-        pkgs-unstable.podman
-        pkgs-unstable.podman-compose
       ];
       # environment variables
       variables = {
@@ -30,11 +26,11 @@
         VISUAL = "nvim";
       };
     };
-
+    programs = { cli = { podman.enable = true; }; };
     services = {
       nix-daemon.enable = true;
       tailscale.enable = true;
+      desktops.yabai.enable = true;
     };
-    services.desktops.yabai.enable = true;
   };
 }

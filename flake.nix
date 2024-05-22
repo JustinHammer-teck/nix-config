@@ -1,8 +1,3 @@
-# flake.nix *
-#   ├─ ./darwin
-#   │   └─ default.nix
-#
-
 {
   description = "Nix, NixOS and Nix Darwin System Flake Configuration";
 
@@ -18,12 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Unstable User Environment Manager
-    home-manager-unstable = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     # MacOS Package Management
     darwin = {
       url = "github:lnl7/nix-darwin/master";
@@ -32,13 +21,13 @@
 
     snowfall-lib.url = "github:snowfallorg/lib/dev";
     snowfall-lib.inputs.nixpkgs.follows = "nixpkgs";
+
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager
-    , home-manager-unstable, darwin, snowfall-lib, ...
-    }@inputs: # Function telling flake which inputs to use
+    , home-manager-unstable, darwin, snowfall-lib, catppuccin, ... }@inputs:
     let
-      # Variables Used In Flake
       vars = {
         user = "moritzzmn";
         home-dir = "/Users/moritzzmn/";
@@ -49,7 +38,7 @@
       darwinConfigurations = (import ./host/imbp/default.nix {
         inherit (nixpkgs) lib;
         inherit inputs nixpkgs-unstable darwin vars snowfall-lib nixpkgs
-          home-manager;
+          home-manager catppuccin;
       });
     };
 }
