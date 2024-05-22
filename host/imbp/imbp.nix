@@ -1,5 +1,4 @@
-{ config, pkgs, lib, vars, ... }: {
-
+{ config, pkgs, pkgs-unstable, lib, vars, ... }: {
   config = {
     # User configuration
     users.users.${vars.user} = {

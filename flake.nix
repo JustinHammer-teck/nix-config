@@ -31,7 +31,7 @@
     };
 
     snowfall-lib.url = "github:snowfallorg/lib/dev";
-    snowfall-lib.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    snowfall-lib.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager

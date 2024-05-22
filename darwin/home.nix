@@ -2,10 +2,8 @@
   # This is required information for home-manager to do its job
 
   imports = [
-    ./../modules/services/yabai
-    { inherit vars; }
-    ./../modules/programs/terminal/zellij
-    ./../modules/programs/direnv
+    ./../modules/home/cli/programs/terminal/zellij
+    ./../modules/home/cli/programs/direnv
   ];
 
   config = {
@@ -13,12 +11,11 @@
       stateVersion = "23.11";
       username = "${vars.user}";
       homeDirectory = "${vars.home-dir}";
-      packages = with pkgs; [ skhd direnv ];
+      packages = with pkgs; [ skhd ];
     };
 
     programs.home-manager.enable = true;
     programs.terminal.zellij.enable = true;
-    services.yabai.enable = true;
 
   };
 }

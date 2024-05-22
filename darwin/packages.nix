@@ -1,4 +1,5 @@
 { pkgs, pkgs-unstable, config, lib, vars, ... }: {
+  imports = [ ./../modules/home/desktops/yabai ];
   config = {
 
     environment = {
@@ -25,7 +26,7 @@
       # environment variables
       variables = {
         NIL_PATH = "${pkgs.nil}/bin/nil";
-        EDITOR = "nvim";
+        EDITOR = "wezterm";
         VISUAL = "nvim";
       };
     };
@@ -34,6 +35,6 @@
       nix-daemon.enable = true;
       tailscale.enable = true;
     };
-
+    services.desktops.yabai.enable = true;
   };
 }
