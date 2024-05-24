@@ -26,7 +26,7 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager
-    , home-manager-unstable, darwin, snowfall-lib, catppuccin, ... }@inputs:
+    , darwin, snowfall-lib, catppuccin, ... }@inputs:
     let
       vars = {
         user = "moritzzmn";

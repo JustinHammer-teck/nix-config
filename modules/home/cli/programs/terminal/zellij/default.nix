@@ -5,7 +5,8 @@ in {
   options.programs.terminal.zellij = { enable = mkEnableOption "Zellij"; };
   config = mkIf cfg.enable {
     xdg.configFile = {
-      "zellij/config.kdl".source = (vars.home-dir + ".config/zellij/config.kdl");
+      "zellij/config.kdl".source =
+        (vars.home-dir + ".config/zellij/config.kdl");
       "zellij/layouts/mine.kdl".text = ''
         layout {
         	pane size=1 borderless=true {

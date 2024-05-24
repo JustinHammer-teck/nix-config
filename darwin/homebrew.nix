@@ -39,5 +39,6 @@
     "vscodium"
     "lulu"
     "wezterm"
+    "utm"
   ];
 }

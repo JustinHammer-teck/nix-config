@@ -18,8 +18,10 @@ in {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.users.moritzzmn = {
-          imports =
-            [ ./../../darwin/home.nix catppuccin.homeManagerModules.catppuccin ];
+          imports = [
+            ./../../darwin/home.nix
+            catppuccin.homeManagerModules.catppuccin
+          ];
         };
         home-manager.extraSpecialArgs = { inherit vars; };
         # Optionally, use home-manager.extraSpecialArgs to pass
