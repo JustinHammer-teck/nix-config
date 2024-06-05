@@ -3,8 +3,14 @@
 
 let
   system = "x86_64-darwin";
-  pkgs = import nixpkgs { inherit system; };
-  pkgs-unstable = import nixpkgs-unstable { inherit system; };
+  pkgs = import nixpkgs {
+    inherit system;
+    config.allowUnfree = true;
+  };
+  pkgs-unstable = import nixpkgs-unstable {
+    inherit system;
+    config.allowUnfree = true;
+  };
 in {
   imbp = darwin.lib.darwinSystem {
     inherit system;

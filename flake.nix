@@ -7,6 +7,8 @@
     nixpkgs-unstable.url =
       "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+
     # User Environment Manager
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
@@ -19,14 +21,27 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     snowfall-lib.url = "github:snowfallorg/lib/dev";
     snowfall-lib.inputs.nixpkgs.follows = "nixpkgs";
 
-    catppuccin.url = "github:catppuccin/nix";
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager
-    , darwin, snowfall-lib, catppuccin, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, darwin
+    , snowfall-lib, microvm, catppuccin, ... }@inputs:
     let
       vars = {
         user = "moritzzmn";

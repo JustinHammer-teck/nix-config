@@ -1,6 +1,7 @@
 { pkgs, lib, config, vars, ... }:
 
 with lib;
+
 let cfg = config.services.desktops.yabai;
 in {
   options.services.desktops.yabai = { enable = mkEnableOption "yabai"; };
