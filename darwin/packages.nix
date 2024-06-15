@@ -16,9 +16,8 @@
         nil
         eza
         delta
-        nixfmt
+        nixfmt-classic
         zoxide
-        tailscale
         just
 
         pkgs-unstable.jetbrains.rider
@@ -36,9 +35,13 @@
     programs = { cli = { podman.enable = true; }; };
     services = {
       nix-daemon.enable = true;
-      tailscale.enable = true;
       desktops.yabai.enable = true;
       skhd.enable = true;
+    };
+
+    services.tailscale = {
+        enable = true;
+        package = pkgs-unstable.tailscale;
     };
     # Create /etc/zshrc that loads the nix-darwin environment.
     #

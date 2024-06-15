@@ -9,7 +9,7 @@ in {
     services.yabai = {
       enable = true;
       package = pkgs.yabai;
-      extraConfig = builtins.readFile "${vars.home-dir}/.config/yabai/yabairc";
+      #extraConfig = builtins.readFile "${vars.home-dir}/.config/yabai/yabairc";
     };
   };
 }

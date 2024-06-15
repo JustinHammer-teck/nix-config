@@ -40,5 +40,6 @@
     "lulu"
     "wezterm"
     "utm"
+    "gitbutler"
   ];
 }

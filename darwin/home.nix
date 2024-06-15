@@ -10,7 +10,7 @@
 
   config = {
     home = {
-      stateVersion = "23.11";
+      stateVersion = "24.05";
       username = "${vars.user}";
       homeDirectory = "${vars.home-dir}";
       packages = with pkgs; [ skhd starship bat ripgrep git ];
@@ -25,7 +25,7 @@
       cli.terminal.starship.enable = true;
     };
 
-    services.desktops.skhd.enable = true;
+    #services.desktops.skhd.enable = true;
   };
 }
 

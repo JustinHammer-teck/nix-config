@@ -33,13 +33,14 @@
         "com.apple.finder".NewWindowTargetPath =
           "file://${config.users.users.moritzzmn.home}/";
       };
-
+      NSGlobalDomain.AppleInterfaceStyle = "Dark";
       NSGlobalDomain.AppleICUForce24HourTime = true;
-      NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = true;
+      NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = false;
       NSGlobalDomain.AppleShowScrollBars = "WhenScrolling";
       NSGlobalDomain.NSNavPanelExpandedStateForSaveMode = true;
       NSGlobalDomain."com.apple.mouse.tapBehavior" = 1;
       NSGlobalDomain."com.apple.trackpad.scaling" = 3.0;
+      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
     };
 
     system.keyboard = {
@@ -54,6 +55,10 @@
     # system.stateVersion = 4;
 
     security.pam.enableSudoTouchIdAuth = true;
+
+
+    networking.hostName = "imbp";
+    networking.localHostName = "imbp";
 
     # The platform the configuration will be used on.
     nixpkgs.hostPlatform = "x86_64-darwin";

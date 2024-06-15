@@ -2,7 +2,7 @@
   description = "Nix, NixOS and Nix Darwin System Flake Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11"; # Nix Packages (Default)
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05"; # Nix Packages (Default)
 
     nixpkgs-unstable.url =
       "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
@@ -11,7 +11,7 @@
 
     # User Environment Manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -29,11 +29,6 @@
     snowfall-lib.url = "github:snowfallorg/lib/dev";
     snowfall-lib.inputs.nixpkgs.follows = "nixpkgs";
 
-    microvm = {
-      url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,7 +36,7 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, darwin
-    , snowfall-lib, microvm, catppuccin, ... }@inputs:
+    , snowfall-lib, catppuccin, ... }@inputs:
     let
       vars = {
         user = "moritzzmn";
