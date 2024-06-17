@@ -1,6 +1,6 @@
 <div align="center">
 <h1>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nixos/nixos-original.svg"/>
+<img width="96" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nixos/nixos-original.svg"/>
 <br>
   Nix Config
 </h1>
