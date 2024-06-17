@@ -1,7 +1,5 @@
 { pkgs, pkgs-unstable, config, lib, vars, ... }: {
-  imports =
-    [ ./modules/yabai 
-    ./../modules/home/cli/programs/podman ];
+  imports = [ ./modules/yabai ./../modules/home/cli/programs/podman ];
   config = {
     environment = {
       loginShell = pkgs.zsh;
@@ -40,8 +38,8 @@
     };
 
     services.tailscale = {
-        enable = true;
-        package = pkgs-unstable.tailscale;
+      enable = true;
+      package = pkgs-unstable.tailscale;
     };
     # Create /etc/zshrc that loads the nix-darwin environment.
     #

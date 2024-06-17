@@ -2,8 +2,7 @@
 
 with lib;
 let cfg = config.services.desktops.skhd;
-in
-{
+in {
   options.services.desktops.skhd = {
     enable = mkEnableOption "skhd configuration";
     components = mkOption {
@@ -14,10 +13,9 @@ in
 
   config = mkIf cfg.enable {
     home.file.".config/skhd/skhdrc" = {
-        text = lib.strings.concatStrings (lib.strings.intersperse "\n"
-          (map builtins.readFile
-            (map (filename: ./configs/skhd + "/${filename}")
-              config.services.desktops.skhd.components)));
+      text = lib.strings.concatStrings (lib.strings.intersperse "\n"
+        (map builtins.readFile (map (filename: ./configs/skhd + "/${filename}")
+          config.services.desktops.skhd.components)));
     };
   };
 }

@@ -56,7 +56,6 @@
 
     security.pam.enableSudoTouchIdAuth = true;
 
-
     networking.hostName = "imbp";
     networking.localHostName = "imbp";
 

@@ -25,6 +25,10 @@
       cli.terminal.starship.enable = true;
     };
 
+    programs.fastfetch = {
+      enable = true;
+      package = pkgs.fastfetch;
+    };
     #services.desktops.skhd.enable = true;
   };
 }
