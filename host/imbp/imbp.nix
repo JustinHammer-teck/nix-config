@@ -13,7 +13,7 @@
       dock.show-recents = false;
 
       spaces.spans-displays = false;
-      screencapture.location = "/tmp";
+      screencapture.location = "~/Pictures/screenshots";
 
       finder.AppleShowAllExtensions = true;
       finder.FXEnableExtensionChangeWarning = false;
@@ -60,10 +60,15 @@
     networking.localHostName = "imbp";
 
     # The platform the configuration will be used on.
+    #
     nixpkgs.hostPlatform = "x86_64-darwin";
+
+    services.nix-daemon.enable = true;
 
     # Optimize Nix storage 
     nix = {
+      configureBuildUsers = true;
+      useDaemon = true;
       settings = {
         auto-optimise-store = true;
         # Necessary for using flakes on this system.

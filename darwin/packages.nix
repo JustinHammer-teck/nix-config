@@ -1,5 +1,7 @@
 { pkgs, pkgs-unstable, config, lib, vars, ... }: {
-  imports = [ ./modules/yabai ./../modules/home/cli/programs/podman ];
+  imports = [ 
+  #./modules/yabai 
+  ./../modules/home/cli/programs/podman ];
   config = {
     environment = {
       loginShell = pkgs.zsh;
@@ -10,7 +12,6 @@
 
       systemPackages = with pkgs; [
         neovim
-        jq
         nil
         eza
         delta
@@ -33,7 +34,7 @@
     programs = { cli = { podman.enable = true; }; };
     services = {
       nix-daemon.enable = true;
-      desktops.yabai.enable = true;
+      # desktops.yabai.enable = true;
       skhd.enable = true;
     };
 

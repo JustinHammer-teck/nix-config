@@ -1,21 +1,13 @@
 { pkgs, lib, config, vars, ... }:
 with lib;
-let cfg = config.programs.terminal.zellij;
+let cfg = config.programs.cli.terminal.zellij;
 in {
-  options.programs.terminal.zellij = { enable = mkEnableOption "Zellij"; };
+  options.programs.cli.terminal.zellij = { enable = mkEnableOption "Zellij"; };
   config = mkIf cfg.enable {
-    xdg.configFile = {
-      "zellij/config.kdl".source =
-        (vars.home-dir + ".config/zellij/config.kdl");
-      "zellij/layouts/mine.kdl".text = ''
-        layout {
-        	pane size=1 borderless=true {
-        		plugin location="zellij:compact-bar"
-        	}
-        	pane
-        }
-      '';
+    home.file = {
+      ".config/zellij".source = ~/DotFile/zellij;
     };
+
     programs.zellij = {
       enable = true;
       enableZshIntegration = true;

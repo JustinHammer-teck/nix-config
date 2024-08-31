@@ -19,6 +19,8 @@
 
   homebrew.taps = [
     "cfergeau/crc"
+    "slp/krun"
+    "nikitabobko/tap"
     #  "homebrew/cask-fonts"
     #  "homebrew/cask-versions"
     #  "homebrew/services"
@@ -39,7 +41,9 @@
     "vscodium"
     "lulu"
     "wezterm"
-    "utm"
     "gitbutler"
+    "tor-browser"
+    "aerospace"
+    "cryptomator"
   ];
 }

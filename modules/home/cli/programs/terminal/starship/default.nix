@@ -11,10 +11,8 @@ in {
       enable = true;
       package = pkgs.starship;
       enableZshIntegration = true;
-      catppuccin.enable = true;
-
+      settings = pkgs.lib.importTOML ~/DotFile/starship/starship.toml;
     };
-    #programs.starship.settings = builtins.readFile( vars.home-dir + ".config/starship.toml");
   };
 }
 
