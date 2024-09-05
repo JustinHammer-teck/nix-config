@@ -8,7 +8,6 @@
       shells = with pkgs; [ zsh ];
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
-      #
 
       systemPackages = with pkgs; [
         neovim
@@ -18,8 +17,6 @@
         nixfmt-classic
         zoxide
         just
-
-        pkgs-unstable.jetbrains.rider
       ];
 
       # environment variables
@@ -27,14 +24,13 @@
         NIL_PATH = "${pkgs.nil}/bin/nil";
         EDITOR = "nvim";
         VISUAL = "wezterm";
-        PATH =
-          "${pkgs-unstable.jetbrains.rider}/Applications/Rider.app/Contents/MacOS:$PATH";
       };
     };
+
     programs = { cli = { podman.enable = true; }; };
+
     services = {
       nix-daemon.enable = true;
-      # desktops.yabai.enable = true;
       skhd.enable = true;
     };
 

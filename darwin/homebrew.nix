@@ -45,5 +45,8 @@
     "tor-browser"
     "aerospace"
     "cryptomator"
+    "rider"
+    "sioyek"
+    #"orbstack"
   ];
 }

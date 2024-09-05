@@ -12,21 +12,26 @@ in  {
   ];
 
   config = {
+
     home = {
       stateVersion = "24.05";
       username = "${vars.user}";
       homeDirectory = "${vars.home-dir}";
-      packages = with pkgs; [starship bat ripgrep git yazi ];
+      packages = with pkgs; [starship bat ripgrep git yazi lazygit];
       sessionVariables = { EDITOR = "${vars.editor}"; };
     };
+
     home.file = {
       ".config/wezterm".source = ~/DotFile/wezterm;
       ".config/aerospace".source = ~/DotFile/aerospace;
       ".config/nvim".source = ~/DotFile/nvim;
       ".config/yazi".source = ~/DotFile/yazi;
       ".config/zsh".source = ~/DotFile/zsh;
+      ".ideavimrc".text = (builtins.readFile ~/DotFile/.ideavimrc);
       };
+
     programs.home-manager.enable = true;
+
     programs = {
       cli.terminal.zellij.enable = true;
       cli.terminal.starship.enable = true;

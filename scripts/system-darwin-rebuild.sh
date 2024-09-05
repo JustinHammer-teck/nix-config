@@ -6,4 +6,4 @@ else
 	export HOST=$(hostname)
 fi
 
-darwin-rebuild switch --flake .#imbp --show-trace --impure
+darwin-rebuild switch --flake .#imbp --impure
