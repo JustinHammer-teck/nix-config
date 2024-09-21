@@ -19,7 +19,6 @@
 
   homebrew.taps = [
     "cfergeau/crc"
-    "slp/krun"
     "nikitabobko/tap"
     #  "homebrew/cask-fonts"
     #  "homebrew/cask-versions"
@@ -28,7 +27,7 @@
 
   # List of Homebrew formulae to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.brews
-  homebrew.brews = [ "vfkit" "trash" ]; # vfkit is needed for podman 5.*.*
+  homebrew.brews = [ "trash" ]; # vfkit is needed for podman 5.*.*
 
   # List of Homebrew casks to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.casks
@@ -41,12 +40,11 @@
     "vscodium"
     "lulu"
     "wezterm"
-    "gitbutler"
     "tor-browser"
     "aerospace"
     "cryptomator"
     "rider"
     "sioyek"
-    #"orbstack"
+    "orbstack"
   ];
 }

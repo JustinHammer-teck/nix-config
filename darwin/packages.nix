@@ -1,7 +1,5 @@
 { pkgs, pkgs-unstable, config, lib, vars, ... }: {
-  imports = [ 
-  #./modules/yabai 
-  ./../modules/home/cli/programs/podman ];
+  imports = [];
   config = {
     environment = {
       loginShell = pkgs.zsh;
@@ -10,7 +8,8 @@
       # $ nix-env -qaP | grep wget
 
       systemPackages = with pkgs; [
-        neovim
+        pkgs-unstable.neovim
+
         nil
         eza
         delta
@@ -19,7 +18,6 @@
         just
       ];
 
-      # environment variables
       variables = {
         NIL_PATH = "${pkgs.nil}/bin/nil";
         EDITOR = "nvim";
@@ -27,20 +25,21 @@
       };
     };
 
-    programs = { cli = { podman.enable = true; }; };
-
     services = {
       nix-daemon.enable = true;
-      skhd.enable = true;
     };
 
     services.tailscale = {
       enable = true;
       package = pkgs-unstable.tailscale;
     };
+
     # Create /etc/zshrc that loads the nix-darwin environment.
     #
-    programs.zsh.enable = true; # default shell on catalina
-
+    programs.zsh = {
+      enable = true;
+      enableCompletion = true;
+      enableSyntaxHighlighting = true;
+    };
   };
 }

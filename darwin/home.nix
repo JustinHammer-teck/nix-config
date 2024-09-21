@@ -18,7 +18,8 @@ in  {
       username = "${vars.user}";
       homeDirectory = "${vars.home-dir}";
       packages = with pkgs; [starship bat ripgrep git yazi lazygit];
-      sessionVariables = { EDITOR = "${vars.editor}"; };
+      sessionVariables = { EDITOR = "${vars.editor}";  HOME_MANAGER = 
+    "${pkgs.lib.makeLibraryPath [pkgs.home-manager]}";};
     };
 
     home.file = {
