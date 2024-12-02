@@ -1,8 +1,6 @@
-{ inputs, nixpkgs-unstable, darwin, nixpkgs, home-manager, lib, vars, catppuccin
-, ... }:
-
+{ self, inputs, nixpkgs-unstable, nixpkgs, home-manager, darwin, lib, vars, catppuccin,  ... }:
 let
-  system = "x86_64-darwin";
+  system = "${vars.platform}";
   pkgs = import nixpkgs {
     inherit system;
     config.allowUnfree = true;
@@ -14,7 +12,7 @@ let
 in {
   imbp = darwin.lib.darwinSystem {
     inherit system;
-    specialArgs = { inherit inputs pkgs pkgs-unstable lib vars; };
+    specialArgs = { inherit inputs self pkgs pkgs-unstable lib vars; };
     modules = [
       ./imbp.nix
       ./../../darwin/homebrew.nix
@@ -30,8 +28,6 @@ in {
           ];
         };
         home-manager.extraSpecialArgs = { inherit vars; };
-        # Optionally, use home-manager.extraSpecialArgs to pass
-        # arguments to home.nix
       }
     ];
   };

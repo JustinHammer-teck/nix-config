@@ -2,17 +2,14 @@
   description = "Nix, NixOS and Nix Darwin System Flake Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05"; # Nix Packages (Default)
-
-    nixpkgs-unstable.url =
-      "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
-
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11"; # Nix Packages (Default)
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
+    #nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     # User Environment Manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # MacOS Package Management
@@ -21,34 +18,28 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    snowfall-lib.url = "github:snowfallorg/lib/dev";
-    snowfall-lib.inputs.nixpkgs.follows = "nixpkgs";
-
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, darwin
-    , snowfall-lib, catppuccin, ... }@inputs:
+  outputs = { self, nixpkgs-unstable, nixpkgs, home-manager, darwin, catppuccin, ... }@inputs:
     let
       vars = {
         user = "moritzzmn";
         home-dir = "/Users/moritzzmn/";
+        dotfile-path = "/Users/moritzzmn/.dotfile";
+        host = "imbp";
         terminal = "wezterm";
         editor = "nvim";
+        platform = "x86_64-darwin";
       };
     in {
       darwinConfigurations = (import ./host/imbp/default.nix {
-        inherit (nixpkgs) lib;
-        inherit inputs nixpkgs-unstable darwin vars snowfall-lib nixpkgs
-          home-manager catppuccin;
+        inherit (nixpkgs-unstable) lib;
+        inherit  self inputs darwin vars nixpkgs-unstable nixpkgs home-manager catppuccin;
       });
+      darwinPackages = self.darwinConfigurations."imbp".pkgs;
     };
 }

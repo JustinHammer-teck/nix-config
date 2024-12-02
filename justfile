@@ -11,6 +11,9 @@ rebuild-pre:
 rebuild-post:
   just check-sops
 
+rebuild-simple:
+  scripts/system-flake-rebuild.sh
+
 # Add --option eval-cache false if you end up caching a failure you can't get around
 rebuild:
   just rebuild-pre

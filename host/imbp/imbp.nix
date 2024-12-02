@@ -1,24 +1,28 @@
-{ config, pkgs, pkgs-unstable, lib, vars, ... }: {
+{ self, config, vars, pkgs, inputs, ... }: {
   config = {
+    nixpkgs.hostPlatform = "${vars.platform}";
+
     # User configuration
     users.users.${vars.user} = {
       name = "${vars.user}";
       home = "${vars.home-dir}";
     };
 
+    networking.hostName = "${vars.host}";
+    networking.localHostName = "${vars.host}";
+
     system.defaults = {
       dock.autohide = true;
       dock.mru-spaces = false;
       dock.minimize-to-application = true;
-      dock.show-recents = false;
 
       spaces.spans-displays = false;
-      screencapture.location = "/tmp";
+      screencapture.location = "~/Pictures/screenshots";
 
       finder.AppleShowAllExtensions = true;
       finder.FXEnableExtensionChangeWarning = false;
       finder.CreateDesktop = false;
-      finder.FXPreferredViewStyle = "Nlsv"; # list view
+      finder.FXPreferredViewStyle = "clmv"; # list view
       finder.ShowPathbar = true;
 
       loginwindow.GuestEnabled = false;
@@ -36,37 +40,22 @@
       NSGlobalDomain.AppleInterfaceStyle = "Dark";
       NSGlobalDomain.AppleICUForce24HourTime = true;
       NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = false;
-      NSGlobalDomain.AppleShowScrollBars = "WhenScrolling";
       NSGlobalDomain.NSNavPanelExpandedStateForSaveMode = true;
       NSGlobalDomain."com.apple.mouse.tapBehavior" = 1;
       NSGlobalDomain."com.apple.trackpad.scaling" = 3.0;
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
     };
 
-    system.keyboard = {
-      enableKeyMapping = true;
-      remapCapsLockToControl = true;
-    };
-
-    # programs.fish.enable = true;
-
-    # Used for backwards compatibility, please read the changelog before changing.
-    # $ darwin-rebuild changelog
-    # system.stateVersion = 4;
-
+    system.configurationRevision = self.rev or self.dirtyRev or null;
+    system.stateVersion = 5;
     security.pam.enableSudoTouchIdAuth = true;
 
-    networking.hostName = "imbp";
-    networking.localHostName = "imbp";
-
-    # The platform the configuration will be used on.
-    nixpkgs.hostPlatform = "x86_64-darwin";
-
-    # Optimize Nix storage 
     nix = {
+      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+      configureBuildUsers = true;
+      useDaemon = true;
+      optimise.automatic = true;
       settings = {
-        auto-optimise-store = true;
-        # Necessary for using flakes on this system.
         experimental-features = "nix-command flakes";
       };
       gc = {
@@ -78,5 +67,24 @@
         auto-optimise-store = true
       '';
     };
+    system.activationScripts.applications.text = let
+      env = pkgs.buildEnv {
+        name = "system-applications";
+        paths = config.environment.systemPackages;
+        pathsToLink = "/Applications";
+      };
+    in
+      pkgs.lib.mkForce ''
+      # Set up applications.
+      echo "setting up /Applications..." >&2
+      rm -rf /Applications/Nix\ Apps
+      mkdir -p /Applications/Nix\ Apps
+      find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
+      while read -r src; do
+        app_name=$(basename "$src")
+        echo "copying $src" >&2
+        ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
+      done
+          '';
   };
 }
