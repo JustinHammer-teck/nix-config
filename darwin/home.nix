@@ -1,8 +1,13 @@
-{ config, pkgs, vars, ... }: 
-  # This is required information for home-manager to do its job
+{
+  config,
+  pkgs,
+  vars,
+  ...
+}:
+# This is required information for home-manager to do its job
 let
-   inherit (config.lib.file) mkOutOfStoreSymlink;
-in  {
+in
+{
   imports = [
     ./../modules/home/cli/programs/terminal/starship
     ./../modules/home/cli/programs/terminal/zellij
@@ -12,14 +17,14 @@ in  {
   config = {
     home = {
       stateVersion = "24.05";
-      username = "${vars.user}";
-      homeDirectory = "${vars.home-dir}";
+      username = "${toString vars.user}";
+      homeDirectory = "${toString vars.home-dir}";
       packages = with pkgs; [
         # CLI application
-        starship 
-        bat 
-        ripgrep 
-        lazygit 
+        starship
+        bat
+        ripgrep
+        lazygit
         eza
         delta
         zoxide
@@ -32,19 +37,18 @@ in  {
         # Developer Tools
         vscodium
       ];
-      sessionVariables = { 
-        EDITOR = "${vars.editor}";  
-        HOME_MANAGER = "${pkgs.lib.makeLibraryPath [pkgs.home-manager]}";
+      sessionVariables = {
+        EDITOR = "${toString vars.editor}";
+        HOME_MANAGER = "${pkgs.lib.makeLibraryPath [ pkgs.home-manager ]}";
       };
     };
 
     home.file = {
-      ".config/wezterm".source = ~/DotFile/wezterm;
-      ".config/aerospace".source = ~/DotFile/aerospace;
-      ".config/nvim".source = ~/DotFile/nvim;
-      ".config/zsh".source = ~/DotFile/zsh;
-      ".ideavimrc".text = (builtins.readFile ~/DotFile/.ideavimrc);
-      };
+      ".config/wezterm".source = "${vars.dotfile-path}/wezterm";
+      ".config/aerospace".source = "${vars.dotfile-path}/aerospace";
+      ".config/zsh".source = "${vars.dotfile-path}/zsh";
+      ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
+    };
 
     programs.home-manager.enable = true;
 
@@ -56,6 +60,11 @@ in  {
     programs.fastfetch = {
       enable = true;
       package = pkgs.fastfetch;
+    };
+
+    xdg.configFile.nvim = {
+      source = config.lib.file.mkOutOfStoreSymlink "${vars.dotfile-path}/nvim";
+      recursive = true;
     };
   };
 }

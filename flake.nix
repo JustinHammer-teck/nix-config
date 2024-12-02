@@ -29,6 +29,7 @@
       vars = {
         user = "moritzzmn";
         home-dir = "/Users/moritzzmn/";
+        dotfile-path = "/Users/moritzzmn/.dotfile";
         host = "imbp";
         terminal = "wezterm";
         editor = "nvim";

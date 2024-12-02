@@ -7,12 +7,16 @@
       systemPackages = with pkgs; [
         git
         mkalias
+        nixfmt-rfc-style
+        nixd
+
         pkgs-unstable.raycast
         pkgs-unstable.neovim
       ];
 
       variables = {
-        NIL_PATH = "${pkgs.nil}/bin/nil";
+        #NIL_PATH = "${pkgs.nil}/bin/nil";
+        NIXD_PATH = "${pkgs.nixd}/bin/nixd";
         EDITOR = "nvim";
         VISUAL = "wezterm";
       };

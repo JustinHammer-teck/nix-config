@@ -5,9 +5,8 @@ in {
   options.programs.cli.terminal.zellij = { enable = mkEnableOption "Zellij"; };
   config = mkIf cfg.enable {
     home.file = {
-      ".config/zellij".source = ~/DotFile/zellij;
+      ".config/zellij".source = "${vars.dotfile-path}/zellij";
     };
-
     programs.zellij = {
       enable = true;
       enableZshIntegration = true;

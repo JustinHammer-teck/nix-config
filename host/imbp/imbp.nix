@@ -1,4 +1,4 @@
-{ self, config, vars, pkgs, ... }: {
+{ self, config, vars, pkgs, inputs, ... }: {
   config = {
     nixpkgs.hostPlatform = "${vars.platform}";
 
@@ -51,6 +51,7 @@
     security.pam.enableSudoTouchIdAuth = true;
 
     nix = {
+      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
       configureBuildUsers = true;
       useDaemon = true;
       optimise.automatic = true;
