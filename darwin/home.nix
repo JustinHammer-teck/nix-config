@@ -1,32 +1,47 @@
 { config, pkgs, vars, ... }: 
   # This is required information for home-manager to do its job
 let
- 
-
+   inherit (config.lib.file) mkOutOfStoreSymlink;
 in  {
   imports = [
-    ./modules/skhd
     ./../modules/home/cli/programs/terminal/starship
     ./../modules/home/cli/programs/terminal/zellij
     ./../modules/home/cli/programs/direnv
   ];
 
   config = {
-
     home = {
       stateVersion = "24.05";
       username = "${vars.user}";
       homeDirectory = "${vars.home-dir}";
-      packages = with pkgs; [starship bat ripgrep git yazi lazygit];
-      sessionVariables = { EDITOR = "${vars.editor}";  HOME_MANAGER = 
-    "${pkgs.lib.makeLibraryPath [pkgs.home-manager]}";};
+      packages = with pkgs; [
+        # CLI application
+        starship 
+        bat 
+        ripgrep 
+        lazygit 
+        eza
+        delta
+        zoxide
+        just
+        yazi
+
+        # Applications
+        aerospace
+
+        # Developer Tools
+        vscodium
+      ];
+      sessionVariables = { 
+        EDITOR = "${vars.editor}";  
+        HOME_MANAGER = "${pkgs.lib.makeLibraryPath [pkgs.home-manager]}";
+      };
     };
 
     home.file = {
       ".config/wezterm".source = ~/DotFile/wezterm;
       ".config/aerospace".source = ~/DotFile/aerospace;
       ".config/nvim".source = ~/DotFile/nvim;
-      ".config/yazi".source = ~/DotFile/yazi;
       ".config/zsh".source = ~/DotFile/zsh;
       ".ideavimrc".text = (builtins.readFile ~/DotFile/.ideavimrc);
       };

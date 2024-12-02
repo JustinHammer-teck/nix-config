@@ -12,39 +12,36 @@
   homebrew.global.lockfiles = false;
 
   homebrew.onActivation = {
-    autoUpdate = false;
-    cleanup = "zap";
-    upgrade = true;
+      cleanup = "zap";
+      autoUpdate = false;
+      upgrade = false;
   };
 
   homebrew.taps = [
-    "cfergeau/crc"
-    "nikitabobko/tap"
     #  "homebrew/cask-fonts"
     #  "homebrew/cask-versions"
     #  "homebrew/services"
+    "cfergeau/crc"
+    "FelixKratz/formulae"
   ];
 
   # List of Homebrew formulae to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.brews
-  homebrew.brews = [ "trash" ]; # vfkit is needed for podman 5.*.*
+  homebrew.brews = [ "trash" "borders" ]; # vfkit is needed for podman 5.*.*
 
   # List of Homebrew casks to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.casks
   homebrew.casks = [
     "obsidian"
     "floorp"
-    "alex313031-thorium"
     "signal"
     "1password"
-    "vscodium"
     "lulu"
+    "rider"
+    "orbstack"
+    "sioyek"
+    "zen-browser"
     "wezterm"
     "tor-browser"
-    "aerospace"
-    "cryptomator"
-    "rider"
-    "sioyek"
-    "orbstack"
   ];
 }

@@ -1,4 +1,4 @@
-{ pkgs, lib, config, vars, ... }:
+{ pkgs, lib, config, vars, catppuccin, ... }:
 with lib;
 let cfg = config.programs.cli.terminal.zellij;
 in {

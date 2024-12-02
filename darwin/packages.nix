@@ -2,20 +2,13 @@
   imports = [];
   config = {
     environment = {
-      loginShell = pkgs.zsh;
       shells = with pkgs; [ zsh ];
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-
+    
       systemPackages = with pkgs; [
+        git
+        mkalias
+        pkgs-unstable.raycast
         pkgs-unstable.neovim
-
-        nil
-        eza
-        delta
-        nixfmt-classic
-        zoxide
-        just
       ];
 
       variables = {
@@ -29,13 +22,7 @@
       nix-daemon.enable = true;
     };
 
-    services.tailscale = {
-      enable = true;
-      package = pkgs-unstable.tailscale;
-    };
-
     # Create /etc/zshrc that loads the nix-darwin environment.
-    #
     programs.zsh = {
       enable = true;
       enableCompletion = true;
