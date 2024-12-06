@@ -1,11 +1,19 @@
-{ pkgs, pkgs-unstable, config, lib, vars, ... }: {
-  imports = [];
+{
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
+{
+  imports = import (./../../darwin/modules);
+
   config = {
+    aerospace.enable = true;
+    tailscale.enable = true;
+
     environment = {
       shells = with pkgs; [ zsh ];
-    
+
       systemPackages = with pkgs; [
-        git
         mkalias
         nixfmt-rfc-style
         nixd
@@ -24,13 +32,6 @@
 
     services = {
       nix-daemon.enable = true;
-    };
-
-    # Create /etc/zshrc that loads the nix-darwin environment.
-    programs.zsh = {
-      enable = true;
-      enableCompletion = true;
-      enableSyntaxHighlighting = true;
     };
   };
 }

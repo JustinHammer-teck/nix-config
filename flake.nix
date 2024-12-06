@@ -24,7 +24,16 @@
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixpkgs, home-manager, darwin, catppuccin, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs-unstable,
+      nixpkgs,
+      home-manager,
+      darwin,
+      catppuccin,
+      ...
+    }@inputs:
     let
       vars = {
         user = "moritzzmn";
@@ -35,11 +44,23 @@
         editor = "nvim";
         platform = "x86_64-darwin";
       };
-    in {
-      darwinConfigurations = (import ./host/imbp/default.nix {
-        inherit (nixpkgs-unstable) lib;
-        inherit  self inputs darwin vars nixpkgs-unstable nixpkgs home-manager catppuccin;
-      });
-      darwinPackages = self.darwinConfigurations."imbp".pkgs;
+    in
+    {
+      darwinConfigurations = (
+        import ./host/imbp/default.nix {
+          inherit (nixpkgs-unstable) lib;
+          inherit
+            self
+            inputs
+            darwin
+            vars
+            nixpkgs-unstable
+            nixpkgs
+            home-manager
+            catppuccin
+            ;
+        }
+      );
+      darwinPackages = self.darwinConfigurations.${vars.host}.pkgs;
     };
 }

@@ -1,5 +1,4 @@
-{ pkgs, lib, ... }:
-
+{ ... }:
 {
   # Enable Homebrew
   # Note that enabling this option does not install Homebrew, see the Homebrew website for installation instructions.
@@ -12,9 +11,9 @@
   homebrew.global.lockfiles = false;
 
   homebrew.onActivation = {
-      cleanup = "zap";
-      autoUpdate = false;
-      upgrade = false;
+    cleanup = "zap";
+    autoUpdate = false;
+    upgrade = false;
   };
 
   homebrew.taps = [
@@ -27,7 +26,10 @@
 
   # List of Homebrew formulae to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.brews
-  homebrew.brews = [ "trash" "borders" ]; # vfkit is needed for podman 5.*.*
+  homebrew.brews = [
+    "trash"
+    "borders"
+  ]; # vfkit is needed for podman 5.*.*
 
   # List of Homebrew casks to install.
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.casks
@@ -43,5 +45,6 @@
     "zen-browser"
     "wezterm"
     "tor-browser"
+    "insomnia"
   ];
 }
