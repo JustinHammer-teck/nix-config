@@ -15,12 +15,10 @@ in
     enable = mkEnableOption "Aerospace Titling Manager";
   };
   config = mkIf (cfg.enable) {
-
-    services.aerospace = {
-      enable = true;
-      package = pkgs.aerospace;
-    };
     home-manager.users.${vars.user} = {
+      home.packages = with pkgs; [
+        aerospace
+      ];
       home.file = {
         ".config/aerospace".source = "${vars.dotfile-path}/aerospace";
       };

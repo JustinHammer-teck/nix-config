@@ -1,12 +1,14 @@
 {
   pkgs,
   pkgs-unstable,
+  vars,
   ...
 }:
 {
   imports = import (./../../darwin/modules);
 
   config = {
+
     aerospace.enable = true;
     tailscale.enable = true;
 
@@ -23,10 +25,9 @@
       ];
 
       variables = {
-        #NIL_PATH = "${pkgs.nil}/bin/nil";
         NIXD_PATH = "${pkgs.nixd}/bin/nixd";
-        EDITOR = "nvim";
-        VISUAL = "wezterm";
+        EDITOR = "${vars.editor}";
+        VISUAL = "${vars.terminal}";
       };
     };
 

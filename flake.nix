@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11"; # Nix Packages (Default)
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
-    #nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     # User Environment Manager
     home-manager = {
@@ -22,6 +21,10 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # ghostty = {
+    #   url = "github:ghostty-org/ghostty";
+    # };
   };
 
   outputs =

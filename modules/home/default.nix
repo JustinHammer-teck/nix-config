@@ -1,7 +1,8 @@
 [
-    ./starship
-    ./wezterm
-    ./zellij
-    ./zsh
-    ./direnv
+  ./starship
+  ./wezterm
+  ./zellij
+  ./zsh
+  ./direnv
+  ./git
 ]

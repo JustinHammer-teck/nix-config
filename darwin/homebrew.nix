@@ -46,5 +46,7 @@
     "wezterm"
     "tor-browser"
     "insomnia"
+    "dangerzone"
+    "ghostty"
   ];
 }

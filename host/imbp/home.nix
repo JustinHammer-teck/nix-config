@@ -1,7 +1,13 @@
-{ config, pkgs, vars, ... }: 
+{
+  config,
+  pkgs,
+  vars,
+  ...
+}:
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
-in  {
+in
+{
   imports = import (./../../modules/home);
   config = {
     home = {
@@ -10,33 +16,36 @@ in  {
       homeDirectory = "${toString vars.home-dir}";
       packages = with pkgs; [
         # CLI application
-        starship 
-        bat 
-        ripgrep 
-        lazygit 
+        starship
+        bat
+        ripgrep
+        lazygit
         eza
         delta
         zoxide
         just
         yazi
+        fzf
 
         # Applications
-        aerospace
+        # aerospace
 
         # Developer Tools
         vscodium
       ];
-      sessionVariables = { 
-        EDITOR = "${toString vars.editor}";  
-        HOME_MANAGER = "${pkgs.lib.makeLibraryPath [pkgs.home-manager]}";
+      sessionVariables = {
+        EDITOR = "${toString vars.editor}";
+        HOME_MANAGER = "${pkgs.lib.makeLibraryPath [ pkgs.home-manager ]}";
       };
     };
 
     home.file = {
       ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
-      };
+    };
 
     programs.home-manager.enable = true;
+
+    git.enable = true;
 
     programs = {
       cli.terminal.wezterm.enable = true;
@@ -52,10 +61,11 @@ in  {
 
     xdg.configFile = {
       nvim = {
-        source =
-          mkOutOfStoreSymlink
-            "${vars.dotfile-path}/nvim";
+        source = mkOutOfStoreSymlink "${vars.dotfile-path}/nvim";
         recursive = true;
+      };
+      ghostty = {
+        source = mkOutOfStoreSymlink "${vars.dotfile-path}/ghostty";
       };
     };
   };

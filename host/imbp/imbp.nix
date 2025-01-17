@@ -1,4 +1,8 @@
-{ self, config, vars, pkgs, inputs, ... }: {
+{
+  vars,
+  ...
+}:
+{
   config = {
     nixpkgs.hostPlatform = "${vars.platform}";
 

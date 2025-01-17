@@ -43,7 +43,7 @@ in
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        home-manager.users.moritzzmn = {
+        home-manager.users.${vars.user} = {
           imports = [
             ./home.nix
             catppuccin.homeManagerModules.catppuccin
