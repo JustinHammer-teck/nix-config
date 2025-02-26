@@ -9,7 +9,6 @@
 {
   config = {
     nixpkgs.hostPlatform = "${vars.platform}";
-
     system.defaults = {
       dock.autohide = true;
       dock.mru-spaces = false;
@@ -47,6 +46,10 @@
     system.configurationRevision = self.rev or self.dirtyRev or null;
     system.stateVersion = 5;
     security.pam.enableSudoTouchIdAuth = true;
+
+    # system.autoUpgrade.enable = true;
+    # system.autoUpgrade.dates = "weekly";
+    #
     nix = {
       nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
       configureBuildUsers = true;
@@ -54,6 +57,7 @@
       optimise.automatic = true;
       settings = {
         experimental-features = "nix-command flakes";
+        # auto-optimise-store = true;
       };
       gc = {
         automatic = true;

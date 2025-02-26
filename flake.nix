@@ -3,18 +3,19 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11"; # Nix Packages (Default)
+
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
 
     # User Environment Manager
     home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # MacOS Package Management
     darwin = {
-      url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     catppuccin = {
@@ -51,7 +52,7 @@
     {
       darwinConfigurations = (
         import ./host/imbp/default.nix {
-          inherit (nixpkgs-unstable) lib;
+          inherit (nixpkgs) lib;
           inherit
             self
             inputs

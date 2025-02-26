@@ -19,9 +19,11 @@
         mkalias
         nixfmt-rfc-style
         nixd
+        sqlite
 
         pkgs-unstable.raycast
         pkgs-unstable.neovim
+        pkgs-unstable.localsend
       ];
 
       variables = {

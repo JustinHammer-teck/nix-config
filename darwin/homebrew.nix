@@ -43,10 +43,10 @@
     "orbstack"
     "sioyek"
     "zen-browser"
-    "wezterm"
     "tor-browser"
-    "insomnia"
     "dangerzone"
     "ghostty"
+    "blender"
+    "utm"
   ];
 }
