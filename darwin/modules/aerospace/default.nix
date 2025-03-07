@@ -3,6 +3,7 @@
   lib,
   vars,
   pkgs,
+  pkgs-unstable,
   ...
 }:
 
@@ -16,7 +17,7 @@ in
   };
   config = mkIf (cfg.enable) {
     home-manager.users.${vars.user} = {
-      home.packages = with pkgs; [
+      home.packages = with pkgs-unstable; [
         aerospace
       ];
       home.file = {

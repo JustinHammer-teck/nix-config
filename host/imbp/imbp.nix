@@ -10,6 +10,8 @@
       name = "${vars.user}";
       home = "${vars.home-dir}";
     };
+
+    networking.computerName = "${vars.host}";
     networking.hostName = "${vars.host}";
     networking.localHostName = "${vars.host}";
   };
