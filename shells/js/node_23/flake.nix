@@ -25,7 +25,7 @@
         ];
 
         shellHook = ''
-          echo "Hello, welcome to Three.js dev shell"
+          echo "Hello, welcome to Node 23 dev shell"
         '';
 
         VTSLS_PATH = "${pkgs.vtsls}/bin/vtsls";
