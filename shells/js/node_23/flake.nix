@@ -22,6 +22,7 @@
           vtsls
           pnpm_10
           prettierd
+          eslint_d
         ];
 
         shellHook = ''

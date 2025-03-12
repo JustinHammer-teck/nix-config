@@ -22,7 +22,6 @@
             nodejs
           ]
           ++ (with pkgs.python312Packages; [
-            pip
             scapy
           ]);
 

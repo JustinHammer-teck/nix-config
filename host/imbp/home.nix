@@ -24,7 +24,6 @@ in
         delta
         zoxide
         just
-        yazi
         fzf
 
         # Applications
@@ -51,6 +50,7 @@ in
       cli.terminal.wezterm.enable = true;
       cli.terminal.zellij.enable = true;
       cli.terminal.starship.enable = true;
+      cli.terminal.yazi.enable = true;
       shell.zsh.enable = true;
     };
 

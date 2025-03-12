@@ -5,4 +5,5 @@
   ./zsh
   ./direnv
   ./git
+  ./yazi
 ]
