@@ -23,9 +23,7 @@
           ]
           ++ (with pkgs.python312Packages; [
             pip
-            matplotlib
-            graphviz
-            tqdm
+            scapy
           ]);
 
         shellHook = ''
