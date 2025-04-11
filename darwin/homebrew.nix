@@ -46,7 +46,8 @@
     "tor-browser"
     "dangerzone"
     "ghostty"
-    "blender"
     "utm"
+    "obs"
+    "mullvad-browser"
   ];
 }

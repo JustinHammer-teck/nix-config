@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = import (./../../darwin/modules);
+  imports = import ./../../darwin/modules;
 
   config = {
 
@@ -24,6 +24,9 @@
         pkgs-unstable.raycast
         pkgs-unstable.neovim
         pkgs-unstable.localsend
+
+        # Darwin only
+        pkgs-unstable.betterdisplay
       ];
 
       variables = {

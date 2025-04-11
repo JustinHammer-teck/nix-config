@@ -8,7 +8,7 @@ let
   inherit (config.lib.file) mkOutOfStoreSymlink;
 in
 {
-  imports = import (./../../modules/home);
+  imports = import ./../../modules/home;
   config = {
     home = {
       stateVersion = "24.05";
@@ -26,11 +26,13 @@ in
         just
         fzf
 
-        # Applications
-        # aerospace
+        # Secret
+        age
+        sops
 
         # Developer Tools
         vscodium
+        qemu
       ];
       sessionVariables = {
         EDITOR = "${toString vars.editor}";
@@ -38,15 +40,12 @@ in
       };
     };
 
-    home.file = {
-      ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
-    };
-
     programs.home-manager.enable = true;
 
     git.enable = true;
 
     programs = {
+      # application.sioyek.enable = true;
       cli.terminal.wezterm.enable = true;
       cli.terminal.zellij.enable = true;
       cli.terminal.starship.enable = true;
@@ -57,6 +56,10 @@ in
     programs.fastfetch = {
       enable = true;
       package = pkgs.fastfetch;
+    };
+
+    home.file = {
+      ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
     };
 
     xdg.configFile = {
