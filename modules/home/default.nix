@@ -6,4 +6,5 @@
   ./direnv
   ./git
   ./yazi
+  ./sioyek
 ]

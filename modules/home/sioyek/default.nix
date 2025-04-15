@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  pkgs,
+  pkgs-unstable,
   ...
 }:
 with lib;
@@ -15,11 +15,7 @@ in
   config = mkIf cfg.enable {
     programs.sioyek = {
       enable = true;
-      package = pkgs.sioyek;
-      config = {
-        ui_font = "DroidSansM Nerd Font Mono";
-        font_size = 15;
-      };
+      package = pkgs-unstable.sioyek;
     };
   };
 }

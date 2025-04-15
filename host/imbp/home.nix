@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   vars,
   ...
 }:
@@ -32,7 +33,6 @@ in
 
         # Developer Tools
         vscodium
-        qemu
       ];
       sessionVariables = {
         EDITOR = "${toString vars.editor}";
@@ -45,7 +45,7 @@ in
     git.enable = true;
 
     programs = {
-      # application.sioyek.enable = true;
+      application.sioyek.enable = true;
       cli.terminal.wezterm.enable = true;
       cli.terminal.zellij.enable = true;
       cli.terminal.starship.enable = true;

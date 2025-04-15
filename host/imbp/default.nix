@@ -46,10 +46,10 @@ in
         home-manager.users.${vars.user} = {
           imports = [
             ./home.nix
-            catppuccin.homeManagerModules.catppuccin
+            catppuccin.homeModules.catppuccin
           ];
         };
-        home-manager.extraSpecialArgs = { inherit pkgs vars; };
+        home-manager.extraSpecialArgs = { inherit pkgs pkgs-unstable vars; };
       }
     ];
   };

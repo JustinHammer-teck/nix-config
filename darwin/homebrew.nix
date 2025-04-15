@@ -41,7 +41,6 @@
     "lulu"
     "rider"
     "orbstack"
-    "sioyek"
     "zen-browser"
     "tor-browser"
     "dangerzone"

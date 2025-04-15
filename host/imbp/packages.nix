@@ -16,10 +16,8 @@
       shells = with pkgs; [ zsh ];
 
       systemPackages = with pkgs; [
-        mkalias
         nixfmt-rfc-style
         nixd
-        sqlite
 
         pkgs-unstable.raycast
         pkgs-unstable.neovim

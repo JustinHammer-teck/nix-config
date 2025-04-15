@@ -26,6 +26,8 @@
     # ghostty = {
     #   url = "github:ghostty-org/ghostty";
     # };
+
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
 
   outputs =
@@ -36,6 +38,7 @@
       home-manager,
       darwin,
       catppuccin,
+      deploy-rs,
       ...
     }@inputs:
     let
@@ -65,6 +68,5 @@
             ;
         }
       );
-      darwinPackages = self.darwinConfigurations.${vars.host}.pkgs;
     };
 }
