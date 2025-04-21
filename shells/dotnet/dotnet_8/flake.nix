@@ -1,29 +1,31 @@
 {
   description = "A Nix-flake-based Umbraco development environment";
 
-   outputs = { self, nixpkgs, ... }@inputs:
+  outputs =
+    { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      devShells."${system}".default = with pkgs; mkShell {
-        name = "dotnet core dev shell";
-        packages = [
-          dotnetCorePackages.sdk_9_0
-        ];
+      dotnet_pkg = pkgs.dotnetCorePackages.sdk_8_0;
+    in
+    {
+      devShells."${system}".default =
+        with pkgs;
+        mkShell {
+          name = "dotnet core dev shell";
+          packages = [
+            dotnet_pkg
+          ];
 
-        nativeBuildInputs = with pkgs; [
-          omnisharp-roslyn
-          msbuild
-        ];
+          nativeBuildInputs = with pkgs; [
+          ];
 
-        shellHook = ''
-          echo "hello to csharp dev shell"  
-          ${pkgs.dotnetCorePackages.sdk_9_0}/bin/dotnet --version
-        '';
+          shellHook = ''
+            echo "hello to csharp dev shell"  
+            ${dotnet_pkg}/bin/dotnet --version
+          '';
 
-        DOTNET_ROOT = "${pkgs.dotnetCorePackages.sdk_9_0}/bin/dotnet";
-        OMNISHARP_PATH = "${pkgs.omnisharp-roslyn}/bin/OmniSharp";
-      };
+          DOTNET_ROOT = "${pkgs.dotnetCorePackages.sdk_8_0}/bin/dotnet";
+        };
     };
 }
