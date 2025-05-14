@@ -11,9 +11,9 @@
   homebrew.global.lockfiles = false;
 
   homebrew.onActivation = {
-    cleanup = "zap";
-    autoUpdate = false;
-    upgrade = false;
+    cleanup = "uninstall";
+    autoUpdate = true;
+    upgrade = true;
   };
 
   homebrew.taps = [
@@ -29,6 +29,7 @@
   homebrew.brews = [
     "trash"
     "borders"
+    "lima"
   ]; # vfkit is needed for podman 5.*.*
 
   # List of Homebrew casks to install.
@@ -40,12 +41,10 @@
     "1password"
     "lulu"
     "rider"
-    "orbstack"
     "zen-browser"
     "tor-browser"
     "dangerzone"
     "ghostty"
-    "utm"
     "obs"
     "mullvad-browser"
   ];

@@ -25,6 +25,8 @@
 
         # Darwin only
         pkgs-unstable.betterdisplay
+        go
+        pkgs-unstable.gofumpt
       ];
 
       variables = {

@@ -32,7 +32,11 @@ in
         sops
 
         # Developer Tools
-        vscodium
+        qemu
+
+        # Applications
+        pkgs-unstable.thunderbird-latest-unwrapped
+        pkgs-unstable.brave
       ];
       sessionVariables = {
         EDITOR = "${toString vars.editor}";
