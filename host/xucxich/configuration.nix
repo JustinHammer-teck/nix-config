@@ -13,6 +13,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./virtualisation.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -49,26 +50,26 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    # allowSFTP = false;
+    allowSFTP = false;
     ports = [ 22 ];
 
-    # settings = {
-    #   LogLevel = "VERBOSE";
-    #   PermitRootLogin = "no";
-    #   PasswordAuthentication = true;
-    #   KbdInteractiveAuthentication = true;
-    # };
+    settings = {
+      LogLevel = "VERBOSE";
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = true;
+    };
 
-    # extraConfig = ''
-    #   ClientAliveCountMax 0
-    #   ClientAliveInterval 300
-    #
-    #   AllowTcpForwarding no
-    #   AllowAgentForwarding no
-    #   MaxAuthTries 3
-    #   MaxSessions 2
-    #   TCPKeepAlive no
-    # '';
+    extraConfig = ''
+      ClientAliveCountMax 0
+      ClientAliveInterval 300
+
+      AllowTcpForwarding no
+      AllowAgentForwarding no
+      MaxAuthTries 3
+      MaxSessions 2
+      TCPKeepAlive no
+    '';
   };
 
   services.fail2ban = {
@@ -87,7 +88,10 @@
     enable = false;
 
     #allow traffic from tailscale
-    trustedInterfaces = [ "tailscale0" ];
+    trustedInterfaces = [
+      "tailscale0"
+      "wlo1"
+    ];
 
     allowedTCPPorts = [ 22 ];
 
@@ -133,9 +137,15 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.xucxich = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "podman"
+    ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
+    ];
+    openssh.authorizedKeys.keys = [
+      (builtins.readFile ../../auth/id_rsa.pub)
     ];
   };
 
@@ -185,6 +195,7 @@
       extraSetFlags = [
         "--advertise-exit-node"
       ];
+      extraUpFlags = [ "--ssh" ];
     };
   };
   # Copy the NixOS configuration file and link it from the resulting system

@@ -87,5 +87,17 @@
             ;
         }
       );
+
+      deploy.nodes.${xucxich.hostname} = {
+        hostname = "${xucxich.hostname}";
+        profiles.system = {
+          user = "root";
+          sshUser = "xucxich";
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${xucxich.hostname};
+        };
+      };
+
+      # This is highly advised, and will prevent many possible mistakes
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
 }
