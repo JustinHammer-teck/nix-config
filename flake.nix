@@ -47,9 +47,15 @@
         home-dir = "/Users/moritzzmn/";
         dotfile-path = "/Users/moritzzmn/.dotfile";
         host = "imbp";
-        terminal = "wezterm";
+        terminal = "ghostty";
         editor = "nvim";
         platform = "x86_64-darwin";
+      };
+      xucxich = {
+        user = "xucxich";
+        host = "xucxich";
+        editor = "nvim";
+        platform = "x86_64-linux";
       };
     in
     {
@@ -61,10 +67,23 @@
             inputs
             darwin
             vars
-            nixpkgs-unstable
             nixpkgs
+            nixpkgs-unstable
             home-manager
             catppuccin
+            ;
+        }
+      );
+
+      nixosConfigurations = (
+        import ./host/xucxich/default.nix {
+          inherit (nixpkgs) lib;
+          inherit
+            self
+            inputs
+            nixpkgs
+            nixpkgs-unstable
+            xucxich
             ;
         }
       );

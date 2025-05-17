@@ -1,0 +1,39 @@
+{
+  self,
+  inputs,
+  nixpkgs,
+  nixpkgs-unstable,
+  lib,
+  xucxich,
+  ...
+}:
+let
+  system = "${xucxich.platform}";
+  pkgs = import nixpkgs {
+    inherit system;
+    config.allowUnfree = true;
+  };
+  pkgs-unstable = import nixpkgs-unstable {
+    inherit system;
+    config.allowUnfree = true;
+  };
+in
+{
+  xucxich = nixpkgs.lib.nixosSystem {
+    inherit system;
+    specialArgs = {
+      inherit
+        inputs
+        self
+        pkgs
+        pkgs-unstable
+        lib
+        xucxich
+        ;
+    };
+    modules = [
+      ./configuration.nix
+      ./hardware-configuration.nix
+    ];
+  };
+}
