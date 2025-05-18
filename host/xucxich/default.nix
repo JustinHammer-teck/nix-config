@@ -5,6 +5,7 @@
   nixpkgs-unstable,
   lib,
   xucxich,
+  agenix,
   ...
 }:
 let
@@ -29,11 +30,13 @@ in
         pkgs-unstable
         lib
         xucxich
+        agenix
         ;
     };
     modules = [
       ./configuration.nix
       ./hardware-configuration.nix
+      agenix.nixosModules.default
     ];
   };
 }

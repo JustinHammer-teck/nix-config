@@ -1,24 +1,38 @@
-{ pkgs, pkgs-unstable, vars, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
-let cfg = config.services.virtualisation.podman;
-in {
+let
+  cfg = config.services.virtualisation.podman;
+in
+{
   options.services.virtualisation.podman = {
-    enable = mkEnableOption "Podman";
+    enable = mkEnableOption "Podman Support";
   };
   config = mkIf cfg.enable {
     virtualisation = {
       podman = {
         enable = true;
-        dockerSocket.enable = true;
-        dockerCompat = true;
-        defaultNetwork.settings.dns_enabled = true;
+        autoPrune = {
+          enable = true;
+          dates = "weekly";
+          flags = [
+            "--filter=until-24h"
+            "--filter=label!=important"
+          ];
+        };
+        defaultNetwork.settings = {
+          dns_enabled = true;
+        };
       };
     };
 
-    environment.systemPackages = with pkgs-unstable; [
-      podman # Containers
-      podman-compose # Multi-Container
+    environment.systemPackages = with pkgs; [
+      dive
+      podman-compose
     ];
   };
 }
-

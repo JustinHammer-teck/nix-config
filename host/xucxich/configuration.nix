@@ -13,8 +13,10 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./virtualisation.nix
+    ../../modules/nixos/virtualisation
   ];
+
+  services.virtualisation.podman.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -55,8 +57,9 @@
 
     settings = {
       LogLevel = "VERBOSE";
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
+      AllowUsers = [ "xucxich" ];
+      PasswordAuthentication = true;
+      X11Forwarding = false;
       KbdInteractiveAuthentication = true;
     };
 
@@ -135,31 +138,33 @@
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.xucxich = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "podman"
-    ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      tree
-    ];
-    openssh.authorizedKeys.keys = [
-      (builtins.readFile ../../auth/id_rsa.pub)
-    ];
+  users = {
+    users.xucxich = {
+      isNormalUser = true;
+      extraGroups = [
+        "wheel"
+        "podman"
+      ]; # Enable ‘sudo’ for the user.
+      packages = with pkgs; [
+        tree
+      ];
+      openssh.authorizedKeys.keys = [
+        (builtins.readFile ../../auth/id_rsa.pub)
+      ];
+    };
   };
 
-  security.sudo.extraRules = [
-    {
-      users = [ "xucxich" ];
-      commands = [
-        {
-          command = "ALL";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
+  # security.sudo.extraRules = [
+  #   {
+  #     users = [ "xucxich" ];
+  #     commands = [
+  #       {
+  #         command = "ALL";
+  #         options = [ "NOPASSWD" ];
+  #       }
+  #     ];
+  #   }
+  # ];
 
   # programs.firefox.enable = true;
 
@@ -183,10 +188,19 @@
 
   # List services that you want to enable:
   # Flake support enable
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 15d";
+    };
+    optimise.automatic = true;
+  };
 
   services = {
     tailscale = {
@@ -196,6 +210,7 @@
         "--advertise-exit-node"
       ];
       extraUpFlags = [ "--ssh" ];
+      useRoutingFeatures = "both";
     };
   };
   # Copy the NixOS configuration file and link it from the resulting system

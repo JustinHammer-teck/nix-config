@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11"; # Nix Packages (Default)
-
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
 
     # User Environment Manager
@@ -23,11 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # ghostty = {
-    #   url = "github:ghostty-org/ghostty";
-    # };
-
-    deploy-rs.url = "github:serokell/deploy-rs";
+    agenix.url = "github:ryantm/agenix";
   };
 
   outputs =
@@ -38,7 +33,7 @@
       home-manager,
       darwin,
       catppuccin,
-      deploy-rs,
+      agenix,
       ...
     }@inputs:
     let
@@ -54,6 +49,7 @@
       xucxich = {
         user = "xucxich";
         host = "xucxich";
+        deploy = "192.168.0.125";
         editor = "nvim";
         platform = "x86_64-linux";
       };
@@ -84,20 +80,9 @@
             nixpkgs
             nixpkgs-unstable
             xucxich
+            agenix
             ;
         }
       );
-
-      deploy.nodes.${xucxich.hostname} = {
-        hostname = "${xucxich.hostname}";
-        profiles.system = {
-          user = "root";
-          sshUser = "xucxich";
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${xucxich.hostname};
-        };
-      };
-
-      # This is highly advised, and will prevent many possible mistakes
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
 }
