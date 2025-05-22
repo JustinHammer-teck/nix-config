@@ -19,10 +19,11 @@
           [
             python312
             virtualenv
-            nodejs
+            nodejs_latest
+            uv
           ]
           ++ (with pkgs.python312Packages; [
-            scapy
+            pip
           ]);
 
         shellHook = ''

@@ -23,6 +23,10 @@
     };
 
     agenix.url = "github:ryantm/agenix";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -34,6 +38,7 @@
       darwin,
       catppuccin,
       agenix,
+      sops-nix,
       ...
     }@inputs:
     let
@@ -67,6 +72,7 @@
             nixpkgs-unstable
             home-manager
             catppuccin
+            sops-nix
             ;
         }
       );
@@ -81,6 +87,7 @@
             nixpkgs-unstable
             xucxich
             agenix
+            sops-nix
             ;
         }
       );

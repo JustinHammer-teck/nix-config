@@ -58,7 +58,7 @@
     settings = {
       LogLevel = "VERBOSE";
       AllowUsers = [ "xucxich" ];
-      PasswordAuthentication = true;
+      PasswordAuthentication = false;
       X11Forwarding = false;
       KbdInteractiveAuthentication = true;
     };
@@ -149,7 +149,7 @@
         tree
       ];
       openssh.authorizedKeys.keys = [
-        (builtins.readFile ../../auth/id_rsa.pub)
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqP1HvcppNVOVZn/B3hd6He1ibPsTisvL16su7k9/7k"
       ];
     };
   };
@@ -174,8 +174,10 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     curl
+    htop
+    age
+    sops
     git
-
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
