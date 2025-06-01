@@ -8,6 +8,7 @@
   lib,
   vars,
   catppuccin,
+  sops-nix,
   ...
 }:
 let
@@ -39,6 +40,7 @@ in
       ./packages.nix
       ./../../darwin
       ./../../darwin/homebrew.nix
+      sops-nix.darwinModules.sops
       home-manager.darwinModules.home-manager
       {
         home-manager.useGlobalPkgs = true;

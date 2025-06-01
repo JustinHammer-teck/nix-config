@@ -14,7 +14,6 @@
 
     environment = {
       shells = with pkgs; [ zsh ];
-
       systemPackages = with pkgs; [
         nixfmt-rfc-style
         nixd
@@ -25,8 +24,6 @@
 
         # Darwin only
         pkgs-unstable.betterdisplay
-        go
-        pkgs-unstable.gofumpt
       ];
 
       variables = {
@@ -34,10 +31,6 @@
         EDITOR = "${vars.editor}";
         VISUAL = "${vars.terminal}";
       };
-    };
-
-    services = {
-      nix-daemon.enable = true;
     };
   };
 }

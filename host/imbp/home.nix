@@ -12,7 +12,7 @@ in
   imports = import ./../../modules/home;
   config = {
     home = {
-      stateVersion = "24.05";
+      stateVersion = "25.05";
       username = "${toString vars.user}";
       homeDirectory = "${toString vars.home-dir}";
       packages = with pkgs; [
@@ -29,14 +29,17 @@ in
 
         # Secret
         age
-        sops
+        pkgs-unstable.sops
 
         # Developer Tools
         qemu
+        _1password-cli
+        tree
 
         # Applications
         pkgs-unstable.thunderbird-latest-unwrapped
         pkgs-unstable.brave
+
       ];
       sessionVariables = {
         EDITOR = "${toString vars.editor}";
@@ -64,6 +67,7 @@ in
 
     home.file = {
       ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
+      # ".config/1Password/ssh/".source = "${vars.dotfile-path}/1Password/ssh";
     };
 
     xdg.configFile = {

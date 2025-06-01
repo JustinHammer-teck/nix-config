@@ -9,66 +9,48 @@
 {
   config = {
     nixpkgs.hostPlatform = "${vars.platform}";
-    system.defaults = {
-      dock.autohide = true;
-      dock.mru-spaces = false;
-      dock.minimize-to-application = true;
+    system = {
 
-      spaces.spans-displays = false;
-      screencapture.location = "~/Pictures/screenshots";
+      checks.verifyNixPath = false;
+      primaryUser = "${vars.user}";
+      stateVersion = 5;
+      defaults = {
+        dock.autohide = true;
+        dock.mru-spaces = false;
+        dock.minimize-to-application = true;
 
-      finder.AppleShowAllExtensions = true;
-      finder.FXEnableExtensionChangeWarning = false;
-      finder.CreateDesktop = false;
-      finder.FXPreferredViewStyle = "clmv"; # list view
-      finder.ShowPathbar = true;
+        spaces.spans-displays = false;
+        screencapture.location = "~/Pictures/screenshots";
 
-      loginwindow.GuestEnabled = false;
+        finder.AppleShowAllExtensions = true;
+        finder.FXEnableExtensionChangeWarning = false;
+        finder.CreateDesktop = false;
+        finder.FXPreferredViewStyle = "clmv"; # list view
+        finder.ShowPathbar = true;
 
-      CustomUserPreferences = {
-        # 3 finger dragging
-        "com.apple.AppleMultitouchTrackpad".DragLock = false;
-        "com.apple.AppleMultitouchTrackpad".Dragging = false;
-        "com.apple.AppleMultitouchTrackpad".TrackpadThreeFingerDrag = true;
+        trackpad = {
+          Clicking = true;
+          TrackpadThreeFingerDrag = true;
+        };
 
-        # Finder's default location upon open
-        "com.apple.finder".NewWindowTargetPath = "file://${config.users.users.moritzzmn.home}/";
+        NSGlobalDomain.AppleInterfaceStyle = "Dark";
+        NSGlobalDomain.AppleICUForce24HourTime = true;
+        NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = false;
+        NSGlobalDomain.NSNavPanelExpandedStateForSaveMode = true;
+        NSGlobalDomain."com.apple.mouse.tapBehavior" = 1;
+        NSGlobalDomain."com.apple.trackpad.scaling" = 3.0;
+
+        SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
       };
-      NSGlobalDomain.AppleInterfaceStyle = "Dark";
-      NSGlobalDomain.AppleICUForce24HourTime = true;
-      NSGlobalDomain.AppleInterfaceStyleSwitchesAutomatically = false;
-      NSGlobalDomain.NSNavPanelExpandedStateForSaveMode = true;
-      NSGlobalDomain."com.apple.mouse.tapBehavior" = 1;
-      NSGlobalDomain."com.apple.trackpad.scaling" = 3.0;
-      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
     };
 
     system.configurationRevision = self.rev or self.dirtyRev or null;
-    system.stateVersion = 5;
-    security.pam.enableSudoTouchIdAuth = true;
+
+    security.pam.services.sudo_local.touchIdAuth = true;
 
     # system.autoUpgrade.enable = true;
     # system.autoUpgrade.dates = "weekly";
     #
-    nix = {
-      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-      configureBuildUsers = true;
-      useDaemon = true;
-      optimise.automatic = true;
-      settings = {
-        experimental-features = "nix-command flakes";
-        # auto-optimise-store = true;
-      };
-      gc = {
-        automatic = true;
-        interval.Day = 7;
-        options = "--delete-older-than 7d";
-      };
-      extraOptions = ''
-        auto-optimise-store = true
-      '';
-    };
-
     system.activationScripts.applications.text =
       let
         env = pkgs.buildEnv {

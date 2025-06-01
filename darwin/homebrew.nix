@@ -8,10 +8,9 @@
   # Automatically use the Brewfile that this module generates in the Nix store
   # https://daiderd.com/nix-darwin/manual/index.html#opt-homebrew.global.brewfile
   homebrew.global.brewfile = true;
-  homebrew.global.lockfiles = false;
+  # homebrew.global.lockfiles = true;
 
   homebrew.onActivation = {
-    cleanup = "uninstall";
     autoUpdate = true;
     upgrade = true;
   };
@@ -39,13 +38,15 @@
     "floorp"
     "signal"
     "1password"
-    "lulu"
     "rider"
     "zen-browser"
     "tor-browser"
-    "dangerzone"
+    "hammerspoon"
     "ghostty"
     "obs"
     "mullvad-browser"
+    "vscodium"
+    "insomnia"
+    "lulu"
   ];
 }
