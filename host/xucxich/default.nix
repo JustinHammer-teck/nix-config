@@ -6,6 +6,7 @@
   lib,
   xucxich,
   agenix,
+  determinate,
   ...
 }:
 let
@@ -31,12 +32,14 @@ in
         lib
         xucxich
         agenix
+        determinate
         ;
     };
     modules = [
       ./configuration.nix
       ./hardware-configuration.nix
       agenix.nixosModules.default
+      determinate.nixosModules.default
     ];
   };
 }

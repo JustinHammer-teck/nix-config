@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05"; # Nix Packages (Default)
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     # User Environment Manager
     home-manager = {
@@ -27,7 +28,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
   outputs =
@@ -40,6 +40,7 @@
       catppuccin,
       agenix,
       sops-nix,
+      determinate,
       ...
     }@inputs:
     let
@@ -88,6 +89,7 @@
             xucxich
             agenix
             sops-nix
+            determinate
             ;
         }
       );

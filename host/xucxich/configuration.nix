@@ -24,18 +24,33 @@
 
   networking = {
     hostName = "xucxich";
-    useDHCP = true;
-    #  interfaces.wlo1 = {
-    #    ipv4.addresses = [{
-    #      address = "192.168.0.190";
-    #      prefixLength = 24;
-    #    }];
-    #  };
+    useDHCP = false;
+    interfaces.wlo1 = {
+      useDHCP = true;
+      ipv4.addresses = [
+        {
+          address = "192.168.0.133";
+          prefixLength = 24;
+        }
+      ];
+    };
     ## defaultGateway = {
     ##   address = "192.168.0.1";
     ##   interface = "wlo1";
     ## };
   };
+  # networking.supplicant = {
+  #   "wlo1" = {
+  #     configFile.path = "/etc/wpa_supplicant.conf";
+  #     userControlled.group = "network";
+  #     extraConf = ''
+  #       ap_scan=1
+  #       p2p_disabled=1
+  #     '';
+  #     extraCmdArgs = "-u -W";
+  #     bridge = "br0";
+  #   };
+  # };
 
   # Pick only one of the below networking options.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
@@ -48,7 +63,16 @@
 
   ## Firewall setup & Hardening System
   systemd.coredump.enable = false;
-
+  systemd.user.services.pi-macvlanshim = {
+    enable = true;
+    after = [ "network.target" ];
+    wantedBy = [ "default.target" ];
+    description = "Pihole Macvlan Shim";
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = ''/home/xucxich/services/pihole/pi-macvlanshim.sh'';
+    };
+  };
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
@@ -61,6 +85,7 @@
       PasswordAuthentication = false;
       X11Forwarding = false;
       KbdInteractiveAuthentication = true;
+      PermitRootLogin = "no";
     };
 
     extraConfig = ''
@@ -179,6 +204,11 @@
     sops
     git
   ];
+
+  programs.vim = {
+    enable = true;
+    defaultEditor = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
