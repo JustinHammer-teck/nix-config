@@ -203,6 +203,7 @@
     age
     sops
     git
+    tree
   ];
 
   programs.vim = {
