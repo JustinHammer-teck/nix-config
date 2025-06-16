@@ -9,24 +9,27 @@
     { self, nixpkgs, ... }:
     let
       system = "x86_64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        system = "${system}";
+        config.allowUnfree = true;
+      };
     in
     {
       devShells.x86_64-darwin.default = pkgs.mkShell {
         nativeBuildInputs =
           with pkgs;
           [
-            php
-            composer
-            nodejs_latest
+            php84
+            nodejs
             intelephense
           ]
           ++ (with php84Packages; [
+            composer
             psalm
             phpstan
           ]);
         shellHook = ''
-          echo "Hello, welcome to larevel dev shell"
+          echo "Hello, welcome to laravel dev shell"
         '';
       };
     };
