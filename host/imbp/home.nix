@@ -11,6 +11,7 @@ in
 {
   imports = import ./../../modules/home;
   config = {
+    xdg.enable = true;
     home = {
       stateVersion = "25.05";
       username = "${toString vars.user}";
@@ -26,6 +27,7 @@ in
         zoxide
         just
         fzf
+        atuin
 
         # Secret
         age
@@ -33,7 +35,6 @@ in
 
         # Developer Tools
         qemu
-        _1password-cli
         tree
 
         # Applications
@@ -47,27 +48,19 @@ in
       };
     };
 
-    programs.home-manager.enable = true;
-
     git.enable = true;
 
     programs = {
       application.sioyek.enable = true;
-      cli.terminal.wezterm.enable = true;
       cli.terminal.zellij.enable = true;
       cli.terminal.starship.enable = true;
       cli.terminal.yazi.enable = true;
       shell.zsh.enable = true;
     };
 
-    programs.fastfetch = {
-      enable = true;
-      package = pkgs.fastfetch;
-    };
-
     home.file = {
       ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
-      # ".config/1Password/ssh/".source = "${vars.dotfile-path}/1Password/ssh";
+      ".config/eza".source = "${vars.dotfile-path}/eza";
     };
 
     xdg.configFile = {

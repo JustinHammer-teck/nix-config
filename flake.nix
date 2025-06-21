@@ -18,6 +18,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    felixkratz-formulae = {
+      url = "github:FelixKratz/homebrew-formulae";
+      flake = false;
+    };
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,6 +58,7 @@
       agenix,
       sops-nix,
       determinate,
+      nix-homebrew,
       ...
     }@inputs:
     let
@@ -74,6 +92,7 @@
             home-manager
             catppuccin
             sops-nix
+            nix-homebrew
             ;
         }
       );

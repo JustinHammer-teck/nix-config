@@ -7,8 +7,8 @@
   darwin,
   lib,
   vars,
-  catppuccin,
   sops-nix,
+  nix-homebrew,
   ...
 }:
 let
@@ -16,10 +16,12 @@ let
   pkgs = import nixpkgs {
     inherit system;
     config.allowUnfree = true;
+
   };
   pkgs-unstable = import nixpkgs-unstable {
     inherit system;
     config.allowUnfree = true;
+
   };
 in
 {
@@ -41,6 +43,21 @@ in
       ./../../darwin
       ./../../darwin/homebrew.nix
       sops-nix.darwinModules.sops
+      nix-homebrew.darwinModules.nix-homebrew
+      {
+        nix-homebrew = {
+          enable = true;
+          user = "${vars.user}";
+          taps = {
+            "FelixKratz/homebrew-formulae" = inputs.felixkratz-formulae;
+            "homebrew/homebrew-core" = inputs.homebrew-core;
+            "homebrew/homebrew-cask" = inputs.homebrew-cask;
+            "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+          };
+          mutableTaps = false;
+          autoMigrate = true;
+        };
+      }
       home-manager.darwinModules.home-manager
       {
         home-manager.useGlobalPkgs = true;
@@ -48,7 +65,7 @@ in
         home-manager.users.${vars.user} = {
           imports = [
             ./home.nix
-            catppuccin.homeModules.catppuccin
+            inputs.catppuccin.homeModules.catppuccin
           ];
         };
         home-manager.extraSpecialArgs = { inherit pkgs pkgs-unstable vars; };
