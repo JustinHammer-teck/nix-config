@@ -13,14 +13,21 @@ in
     enable = mkEnableOption "zsh";
   };
   config = mkIf cfg.enable {
-    # Create /etc/zshrc that loads the nix-darwin environment.
+
     programs.zsh = {
       enable = true;
       enableCompletion = true;
-      syntaxHighlighting.enable= true;
+      autosuggestion = {
+        enable = true;
+      };
+      syntaxHighlighting.enable = true;
     };
-    home.file = {
-      ".config/zsh".source = "${vars.dotfile-path}/zsh";
+
+    xdg.configFile = {
+      zsh = {
+        source = config.lib.file.mkOutOfStoreSymlink "${vars.dotfile-path}/zsh";
+        recursive = true;
+      };
     };
   };
 }

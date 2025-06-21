@@ -21,6 +21,11 @@ in
       package = pkgs.git;
       userName = name;
       userEmail = email;
+      signing = {
+        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsTUWula6xGju3x3LyEJKxhYDW2BfLvt3wcIjVyY3hC dinhnhattai.nguyen@hotmail.com";
+        signByDefault = true;
+        format = "ssh";
+      };
       ignores = [
         ".DS_Store"
         "node_modules"
@@ -29,16 +34,15 @@ in
       ];
       aliases = {
         gsw = "git switch";
+        prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
       };
       extraConfig = {
-        pull.rebase = true;
-        commit.gpgSign = lib.mkDefault true;
-        gpg.format = "ssh";
-        user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsTUWula6xGju3x3LyEJKxhYDW2BfLvt3wcIjVyY3hC dinhnhattai.nguyen@hotmail.com";
-        gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-
-        push.autoSetupRemote = true;
+        branch.autosetuprebase = "always";
+        color.ui = true;
+        github.user = "JustinHammer-teck";
+        push.default = "tracking";
         rerere.enabled = true;
+        init.defaultBranch = "main";
       };
     };
   };
