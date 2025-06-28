@@ -4,15 +4,14 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05"; # Nix Packages (Default)
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
+
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
-    # User Environment Manager
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # MacOS Package Management
     darwin = {
       url = "github:lnl7/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,29 +54,10 @@
       home-manager,
       darwin,
       catppuccin,
-      agenix,
       sops-nix,
-      determinate,
       nix-homebrew,
       ...
     }@inputs:
-    let
-      vars = {
-        user = "moritzzmn";
-        home-dir = "/Users/moritzzmn/";
-        dotfile-path = "/Users/moritzzmn/.dotfile";
-        host = "imbp";
-        terminal = "ghostty";
-        editor = "nvim";
-        platform = "x86_64-darwin";
-      };
-      xucxich = {
-        user = "xucxich";
-        host = "xucxich";
-        editor = "nvim";
-        platform = "x86_64-linux";
-      };
-    in
     {
       darwinConfigurations = (
         import ./host/imbp/default.nix {
@@ -86,7 +66,6 @@
             self
             inputs
             darwin
-            vars
             nixpkgs
             nixpkgs-unstable
             home-manager
@@ -97,7 +76,7 @@
         }
       );
 
-      nixosConfigurations = (
+      nixosConfigurations.xucxich = (
         import ./host/xucxich/default.nix {
           inherit (nixpkgs) lib;
           inherit
@@ -105,10 +84,18 @@
             inputs
             nixpkgs
             nixpkgs-unstable
-            xucxich
-            agenix
-            sops-nix
-            determinate
+            ;
+        }
+      );
+
+      nixosConfigurations.chabo = (
+        import ./host/chabo/default.nix {
+          inherit (nixpkgs) lib;
+          inherit
+            self
+            inputs
+            nixpkgs
+            nixpkgs-unstable
             ;
         }
       );

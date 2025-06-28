@@ -11,9 +11,15 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
+
+  # sops.secrets = {
+  #   "chaboauthkey" = {
+  #     owner = config.users.users.chabo.name;
+  #     inherit (config.users.users.chabo) group;
+  #   };
+  # };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -84,6 +90,9 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [ ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqP1HvcppNVOVZn/B3hd6He1ibPsTisvL16su7k9/7k moritzzmn@imbp"
+    ];
   };
 
   # programs.firefox.enable = true;
@@ -107,13 +116,71 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    allowSFTP = false;
+    ports = [ 22 ];
+
+    settings = {
+      LogLevel = "VERBOSE";
+      AllowUsers = [ "chabo" ];
+      PasswordAuthentication = false;
+      X11Forwarding = false;
+      KbdInteractiveAuthentication = true;
+      PermitRootLogin = "no";
+    };
+
+    extraConfig = ''
+      ClientAliveCountMax 0
+      ClientAliveInterval 300
+
+      AllowTcpForwarding no
+      AllowAgentForwarding no
+      MaxAuthTries 3
+      MaxSessions 2
+      TCPKeepAlive no
+    '';
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  services.logind.extraConfig = ''
+    KillUserProcesses=no
+  '';
+
+  # List services that you want to enable:
+  # Flake support enable
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 15d";
+    };
+    optimise.automatic = true;
+  };
+
+  # services = {
+  #   tailscale = {
+  #     enable = true;
+  #     package = pkgs.tailscale;
+  #     authKeyFile = "${config.sops.secrets."chaboauthkey".path}";
+  #     extraSetFlags = [
+  #       "--advertise-tags:infra"
+  #     ];
+  #     extraUpFlags = [ "--ssh" ];
+  #     useRoutingFeatures = "both";
+  #     interfaceName = "tailscale0";
+  #   };
+  # };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
