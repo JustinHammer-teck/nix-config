@@ -17,6 +17,7 @@
       systemPackages = with pkgs; [
         nixfmt-rfc-style
         nixd
+        just
 
         pkgs-unstable.raycast
         pkgs-unstable.neovim

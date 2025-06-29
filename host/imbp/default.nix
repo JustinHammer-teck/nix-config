@@ -6,12 +6,21 @@
   home-manager,
   darwin,
   lib,
-  vars,
   sops-nix,
   nix-homebrew,
   ...
 }:
 let
+  vars = {
+    user = "moritzzmn";
+    home-dir = "/Users/moritzzmn/";
+    dotfile-path = "/Users/moritzzmn/.dotfile";
+    host = "imbp";
+    terminal = "ghostty";
+    editor = "nvim";
+    platform = "x86_64-darwin";
+  };
+
   system = "${vars.platform}";
   pkgs = import nixpkgs {
     inherit system;
@@ -52,7 +61,6 @@ in
             "FelixKratz/homebrew-formulae" = inputs.felixkratz-formulae;
             "homebrew/homebrew-core" = inputs.homebrew-core;
             "homebrew/homebrew-cask" = inputs.homebrew-cask;
-            "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
           };
           mutableTaps = false;
           autoMigrate = true;

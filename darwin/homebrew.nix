@@ -1,18 +1,19 @@
-{ pkgs, ... }:
 {
-  system.primaryUser = "moritzzmn";
+  config,
+  ...
+}:
+{
   homebrew.enable = true;
   homebrew.global.brewfile = true;
   homebrew.global.lockfiles = true;
 
   homebrew.onActivation = {
     autoUpdate = true;
+    cleanup = "zap";
     upgrade = true;
   };
 
-  # homebrew.taps = [
-  #   "FelixKratz/formulae"
-  # ];
+  homebrew.taps = (builtins.attrNames config.nix-homebrew.taps);
 
   homebrew.brews = [
     "trash"
@@ -22,15 +23,17 @@
 
   homebrew.casks = [
     "obsidian"
-    "floorp"
     "signal"
     "1password"
     "rider"
-    "tor-browser"
-    "hammerspoon"
+    "pycharm"
+    "phpstorm"
     "ghostty"
     "obs"
+    "floorp"
     "mullvad-browser"
+    "tor-browser"
+    "zen-browser"
     "vscodium"
     "insomnia"
     "lulu"

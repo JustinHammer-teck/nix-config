@@ -3,7 +3,6 @@
   config,
   vars,
   pkgs,
-  inputs,
   ...
 }:
 {
