@@ -37,6 +37,9 @@
         shellHook = ''
           echo "Hello, welcome to Tailpress dev shell"
         '';
+
+        PRETTIERD = "${pkgs.prettierd}/bin/prettierd";
+        ESLINT = "${pkgs.eslint_d}/bin/eslint_d";
       };
     };
 }

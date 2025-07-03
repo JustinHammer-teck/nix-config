@@ -1,4 +1,4 @@
-SOPS_FILE := "../nix-secrets/secrets.yaml"
+SOPS_FILE := "secrets.yaml"
 
 # default recipe to display help information
 default:
@@ -16,7 +16,6 @@ rebuild-simple:
 
 # Add --option eval-cache false if you end up caching a failure you can't get around
 rebuild:
-  just rebuild-pre
   scripts/system-flake-rebuild.sh
 
 # Requires sops to be running and you must have reboot after inital rebuild
@@ -35,7 +34,7 @@ update:
   nix flake update
 
 rebuild-darwin:
-  scripts/system-flake-rebuild.sh
+  zsh ./scripts/nix-rebuild.sh
 
 rebuild-update:
   just update

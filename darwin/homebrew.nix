@@ -33,7 +33,7 @@
     "floorp"
     "mullvad-browser"
     "tor-browser"
-    "zen-browser"
+    "zen"
     "vscodium"
     "insomnia"
     "lulu"
