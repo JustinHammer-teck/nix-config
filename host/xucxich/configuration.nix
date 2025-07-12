@@ -89,6 +89,8 @@
     };
 
     extraConfig = ''
+      PubkeyAuthentication yes
+
       ClientAliveCountMax 0
       ClientAliveInterval 300
 
