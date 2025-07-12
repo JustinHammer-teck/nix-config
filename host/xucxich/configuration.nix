@@ -75,7 +75,7 @@
   };
   # Enable the OpenSSH daemon.
   services.openssh = {
-    enable = true;
+    enable = false;
     allowSFTP = false;
     ports = [ 22 ];
 
@@ -106,6 +106,7 @@
     bantime-increment.enable = true;
   };
 
+  security.pam.sshAgentAuth.enable = true;
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -121,7 +122,12 @@
       "wlo1"
     ];
 
-    allowedTCPPorts = [ 22 ];
+    allowedTCPPorts = [
+      22
+      80
+      443
+      config.services.tailscale.stunPort
+    ];
 
     allowedUDPPorts = [ config.services.tailscale.port ];
   };
@@ -199,8 +205,6 @@
     wget
     curl
     htop
-    age
-    sops
     git
     tree
   ];
