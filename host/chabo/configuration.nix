@@ -12,7 +12,10 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/nixos/virtualisation
   ];
+
+  services.virtualisation.podman.enable = true;
 
   # sops.secrets = {
   #   "chaboauthkey" = {
@@ -24,6 +27,8 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  security.pam.sshAgentAuth.enable = true;
 
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -48,6 +53,25 @@
     };
   }; # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+
+  networking.firewall = {
+    enable = true;
+
+    #allow traffic from tailscale
+    trustedInterfaces = [
+      "tailscale0"
+      "wlo1"
+    ];
+
+    allowedTCPPorts = [
+      22
+      80
+      443
+      config.services.tailscale.stunPort
+    ];
+
+    allowedUDPPorts = [ config.services.tailscale.port ];
+  };
 
   # Set your time zone.
   time.timeZone = "Australia/Sydney";
@@ -89,7 +113,10 @@
   users.users.chabo = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [ ];
+    packages = with pkgs; [
+      sops
+      age
+    ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqP1HvcppNVOVZn/B3hd6He1ibPsTisvL16su7k9/7k moritzzmn@imbp"
     ];
@@ -122,15 +149,17 @@
     ports = [ 22 ];
 
     settings = {
-      LogLevel = "VERBOSE";
+      LogLevel = "INFO";
       AllowUsers = [ "chabo" ];
-      PasswordAuthentication = false;
+      PasswordAuthentication = true;
       X11Forwarding = false;
       KbdInteractiveAuthentication = true;
       PermitRootLogin = "no";
     };
 
     extraConfig = ''
+      PubkeyAuthentication yes
+
       ClientAliveCountMax 0
       ClientAliveInterval 300
 
