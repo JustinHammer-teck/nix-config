@@ -60,14 +60,11 @@
     #allow traffic from tailscale
     trustedInterfaces = [
       "tailscale0"
-      "wlo1"
+      "wlp3s0"
     ];
 
     allowedTCPPorts = [
       22
-      80
-      443
-      config.services.tailscale.stunPort
     ];
 
     allowedUDPPorts = [ config.services.tailscale.port ];
