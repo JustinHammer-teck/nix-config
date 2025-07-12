@@ -75,12 +75,12 @@
   };
   # Enable the OpenSSH daemon.
   services.openssh = {
-    enable = false;
+    enable = true;
     allowSFTP = false;
     ports = [ 22 ];
 
     settings = {
-      LogLevel = "VERBOSE";
+      LogLevel = "INFO";
       AllowUsers = [ "xucxich" ];
       PasswordAuthentication = false;
       X11Forwarding = false;
@@ -107,6 +107,7 @@
   };
 
   security.pam.sshAgentAuth.enable = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -195,8 +196,6 @@
   #     ];
   #   }
   # ];
-
-  # programs.firefox.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
