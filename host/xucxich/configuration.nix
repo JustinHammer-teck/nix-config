@@ -127,9 +127,6 @@
 
     allowedTCPPorts = [
       22
-      80
-      443
-      config.services.tailscale.stunPort
     ];
 
     allowedUDPPorts = [ config.services.tailscale.port ];
