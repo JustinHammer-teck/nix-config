@@ -29,18 +29,20 @@ in
         fzf
         atuin
 
+        # Work
+        pkgs-unstable.docker
+        pkgs-unstable.docker-compose
+
         # Secret
         age
         pkgs-unstable.sops
 
         # Developer Tools
-        qemu
         tree
 
         # Applications
         pkgs-unstable.thunderbird-latest-unwrapped
         pkgs-unstable.brave
-
       ];
       sessionVariables = {
         EDITOR = "${toString vars.editor}";

@@ -9,8 +9,8 @@
 
   homebrew.onActivation = {
     autoUpdate = true;
-    cleanup = "zap";
     upgrade = true;
+    cleanup = "zap";
   };
 
   homebrew.taps = (builtins.attrNames config.nix-homebrew.taps);
@@ -29,13 +29,11 @@
     "pycharm"
     "phpstorm"
     "ghostty"
-    "obs"
     "floorp"
-    "mullvad-browser"
     "tor-browser"
     "zen"
     "vscodium"
-    "insomnia"
     "lulu"
+    "obs"
   ];
 }

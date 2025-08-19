@@ -4,6 +4,15 @@ SOPS_FILE := "secrets.yaml"
 default:
   @just --list
 
+deploy USER HOST:
+    scripts/deploy.sh -u {{USER}} -h {{HOST}}
+
+deploy-xucxich: 
+    just deploy xucxich 192.168.0.133 
+
+deploy-chabo: 
+    just deploy chabo 192.168.0.134
+
 rebuild-pre:
   just update-nix-secrets
   git add *.nix
@@ -12,10 +21,6 @@ rebuild-post:
   just check-sops
 
 rebuild-simple:
-  scripts/system-flake-rebuild.sh
-
-# Add --option eval-cache false if you end up caching a failure you can't get around
-rebuild:
   scripts/system-flake-rebuild.sh
 
 # Requires sops to be running and you must have reboot after inital rebuild
@@ -35,6 +40,14 @@ update:
 
 rebuild-darwin:
   zsh ./scripts/nix-rebuild.sh
+
+rm-rebuild-darwin:
+  sudo nix run nix-darwin/nix-darwin-25.05#darwin-rebuild -- \
+    --option extra-substituters https://install.determinate.systems \
+    --option extra-trusted-public-keys cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM= \
+    --build-host xucxich@192.168.0.133\
+    switch --flake \
+    .#imbp --impure --fallback --show-trace
 
 rebuild-update:
   just update
