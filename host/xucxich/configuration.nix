@@ -55,8 +55,8 @@
   # Pick only one of the below networking options.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
   networking.wireless.networks = {
-    TelstraD3ADC8 = {
-      pskRaw = "7df08cb5841804118bcbe9ee72b5fff983c6f7ba533b47e7ce363258273283f5";
+    Telstra9A3DD6 = {
+      pskRaw = "177f584a65cc9932a4e0862404b30859af5b98f065b4647aa5f10a114fa05000";
     };
   };
   networking.networkmanager.enable = false; # Easiest to use and most distros use this by default.

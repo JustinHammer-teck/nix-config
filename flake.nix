@@ -34,10 +34,6 @@
       url = "github:FelixKratz/homebrew-formulae";
       flake = false;
     };
-    lizardbyte-sunshine = {
-      url = "github:LizardByte/homebrew-homebrew";
-      flake = false;
-    };
 
     catppuccin = {
       url = "github:catppuccin/nix";
