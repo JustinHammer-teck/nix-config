@@ -22,9 +22,6 @@
         pkgs-unstable.raycast
         pkgs-unstable.neovim
         pkgs-unstable.localsend
-
-        # Darwin only
-        pkgs-unstable.betterdisplay
       ];
 
       variables = {

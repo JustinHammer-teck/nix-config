@@ -30,10 +30,11 @@
     "phpstorm"
     "ghostty"
     "floorp"
-    "tor-browser"
     "zen"
     "vscodium"
     "lulu"
     "obs"
+    "anydesk"
+    "betterdisplay"
   ];
 }

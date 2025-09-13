@@ -17,7 +17,6 @@ in
       username = "${toString vars.user}";
       homeDirectory = "${toString vars.home-dir}";
       packages = with pkgs; [
-        # CLI application
         starship
         bat
         ripgrep
@@ -29,21 +28,19 @@ in
         fzf
         atuin
 
-        # Work
         pkgs-unstable.docker
         pkgs-unstable.docker-compose
 
-        # Secret
         age
         pkgs-unstable.sops
 
-        # Developer Tools
         tree
 
         # Applications
         pkgs-unstable.thunderbird-latest-unwrapped
         pkgs-unstable.brave
       ];
+
       sessionVariables = {
         EDITOR = "${toString vars.editor}";
         HOME_MANAGER = "${pkgs.lib.makeLibraryPath [ pkgs.home-manager ]}";
