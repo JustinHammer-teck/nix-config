@@ -18,7 +18,7 @@ in
 
     services.tailscale = {
       enable = true;
-      package = pkgs.tailscale;
+      package = pkgs-unstable.tailscale;
     };
   };
 }

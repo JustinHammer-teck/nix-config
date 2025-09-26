@@ -18,7 +18,6 @@
   homebrew.brews = [
     "trash"
     "borders"
-    "lima"
   ];
 
   homebrew.casks = [
@@ -28,13 +27,15 @@
     "rider"
     "pycharm"
     "phpstorm"
-    "ghostty"
     "floorp"
     "zen"
     "vscodium"
+    "local"
     "lulu"
     "obs"
     "anydesk"
     "betterdisplay"
+    "moonlight"
+    "wezterm"
   ];
 }

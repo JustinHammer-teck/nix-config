@@ -21,12 +21,9 @@ in
         bat
         ripgrep
         lazygit
-        eza
         delta
-        zoxide
         just
         fzf
-        atuin
 
         pkgs-unstable.docker
         pkgs-unstable.docker-compose
@@ -45,15 +42,40 @@ in
         EDITOR = "${toString vars.editor}";
         HOME_MANAGER = "${pkgs.lib.makeLibraryPath [ pkgs.home-manager ]}";
       };
+      shell.enableZshIntegration = true;
     };
 
     git.enable = true;
 
+    programs.zoxide = {
+      package = pkgs.zoxide;
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    programs.eza = {
+      package = pkgs.eza;
+      enable = true;
+      enableZshIntegration = true;
+      icons = "always";
+      git = true;
+      colors = "always";
+      extraOptions = [
+        "--group-directories-first"
+        "--long"
+        "--accessed"
+        "--no-time"
+      ];
+    };
+
+    programs.atuin = {
+      enable = true;
+      package = pkgs.atuin;
+      enableZshIntegration = true;
+    };
+
     programs = {
-      application.sioyek.enable = true;
-      cli.terminal.zellij.enable = true;
       cli.terminal.starship.enable = true;
-      cli.terminal.yazi.enable = true;
       shell.zsh.enable = true;
     };
 
@@ -67,8 +89,9 @@ in
         source = mkOutOfStoreSymlink "${vars.dotfile-path}/nvim";
         recursive = true;
       };
-      ghostty = {
-        source = mkOutOfStoreSymlink "${vars.dotfile-path}/ghostty";
+      wezterm = {
+        source = mkOutOfStoreSymlink "${vars.dotfile-path}/wezterm";
+        recursive = true;
       };
     };
   };

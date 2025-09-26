@@ -2,6 +2,7 @@
   lib,
   config,
   vars,
+  pkgs,
   ...
 }:
 with lib;
@@ -17,17 +18,37 @@ in
     programs.zsh = {
       enable = true;
       enableCompletion = true;
-      autosuggestion = {
-        enable = true;
-      };
       syntaxHighlighting.enable = true;
+      plugins = [
+        {
+          name = pkgs.zsh-autopair.pname;
+          src = pkgs.zsh-autopair.src;
+        }
+        {
+          name = pkgs.zsh-autocomplete.pname;
+          src = pkgs.zsh-autocomplete.src;
+        }
+        {
+          name = pkgs.nix-zsh-completions.pname;
+          src = pkgs.nix-zsh-completions.src;
+        }
+        {
+          name = pkgs.zsh-you-should-use.pname;
+          src = pkgs.zsh-you-should-use.src;
+        }
+      ];
+      history = {
+        append = true;
+        ignoreDups = true;
+        saveNoDups = true;
+      };
     };
 
-    xdg.configFile = {
-      zsh = {
-        source = config.lib.file.mkOutOfStoreSymlink "${vars.dotfile-path}/zsh";
-        recursive = true;
-      };
-    };
+    # xdg.configFile = {
+    #   zsh = {
+    #     source = config.lib.file.mkOutOfStoreSymlink "${vars.dotfile-path}/zsh";
+    #     recursive = true;
+    #   };
+    # };
   };
 }
