@@ -19,11 +19,13 @@ in
       packages = with pkgs; [
         starship
         bat
-        ripgrep
         lazygit
         delta
         just
         fzf
+        ripgrep
+
+        iperf
 
         pkgs-unstable.docker
         pkgs-unstable.docker-compose
@@ -36,6 +38,8 @@ in
         # Applications
         pkgs-unstable.thunderbird-latest-unwrapped
         pkgs-unstable.brave
+        pkgs-unstable.claude-code
+        pkgs-unstable.insomnia
       ];
 
       sessionVariables = {

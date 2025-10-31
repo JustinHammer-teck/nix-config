@@ -1,0 +1,11 @@
+keys:
+  - &ibmp age1kk2j04gj4vvz230g7zy6ja0fhp7z93nwdhh4wqnszf8qtgnjqqvqu4aeny
+  - &chabo age1xnkqa2w5z4cktrfxe9uzpc3fg3dnpauvadr4x8j6gvcm99rlws3qzlnt88
+
+creation_rules:
+  - path_regex: secret-chabo.yaml$
+    age: *chabo
+
+  - path_regex: secret.yaml$
+    age: *ibmp
+

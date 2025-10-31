@@ -16,7 +16,7 @@ let
     home-dir = "/Users/moritzzmn/";
     dotfile-path = "/Users/moritzzmn/.dotfile";
     host = "imbp";
-    terminal = "ghostty";
+    terminal = "wezterm";
     editor = "nvim";
     platform = "x86_64-darwin";
   };

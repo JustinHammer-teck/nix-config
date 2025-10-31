@@ -18,6 +18,7 @@
   homebrew.brews = [
     "trash"
     "borders"
+    "libomp"
   ];
 
   homebrew.casks = [
@@ -25,7 +26,6 @@
     "signal"
     "1password"
     "rider"
-    "pycharm"
     "phpstorm"
     "floorp"
     "zen"

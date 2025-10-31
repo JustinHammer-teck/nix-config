@@ -3,7 +3,6 @@
   lib,
   config,
   vars,
-  catppuccin,
   ...
 }:
 with lib;
@@ -22,11 +21,6 @@ in
       enable = true;
       enableZshIntegration = true;
       package = pkgs.zellij;
-    };
-
-    catppuccin.zellij = {
-      enable = true;
-      flavor = "macchiato";
     };
   };
 }
