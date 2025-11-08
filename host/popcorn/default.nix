@@ -52,7 +52,7 @@ nixpkgs.lib.nixosSystem {
       };
 
       home-manager = {
-        users.your-username = {
+        users."${popcorn.user}" = {
           imports = [ inputs.omarchy-nix.homeManagerModules.default ];
         };
       };
