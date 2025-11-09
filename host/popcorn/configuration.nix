@@ -23,6 +23,7 @@
   # Security
   security.pam.sshAgentAuth.enable = true;
 
+  networking.hostName = "popcorn";
   # Pick only one of the below networking options.
   # networking = {
   #   hostName = "chabo";
@@ -154,7 +155,6 @@
       AllowTcpForwarding no
       AllowAgentForwarding no
       MaxAuthTries 3
-      MaxSessions 2
       TCPKeepAlive yes
     '';
   };

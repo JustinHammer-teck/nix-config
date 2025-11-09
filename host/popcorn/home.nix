@@ -8,7 +8,6 @@ let
   inherit (config.lib.file) mkOutOfStoreSymlink;
 in
 {
-  imports = import ./../../modules/home;
   config = {
     home = {
       stateVersion = "25.05";
@@ -30,6 +29,11 @@ in
         EDITOR = "${toString popcorn.editor}";
         HOME_MANAGER = "${pkgs.lib.makeLibraryPath [ pkgs.home-manager ]}";
       };
+    };
+
+    programs.git.enable = true;
+    programs.bash = {
+      enable = true;
     };
   };
 }

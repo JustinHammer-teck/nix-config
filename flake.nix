@@ -40,6 +40,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    omarchy-nix = {
+      url = "github:henrysipp/omarchy-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     agenix.url = "github:ryantm/agenix";
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -89,8 +95,8 @@
         }
       );
 
-      nixosConfigurations.chabo = (
-        import ./host/chabo/default.nix {
+      nixosConfigurations.popcorn = (
+        import ./host/popcorn/default.nix {
           inherit (nixpkgs) lib;
           inherit
             self

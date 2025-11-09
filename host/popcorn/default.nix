@@ -10,6 +10,7 @@ let
   popcorn = {
     user = "moritzzmn";
     host = "popcorn";
+    home-dir = "/home/moritzzmn";
     editor = "nvim";
     platform = "x86_64-linux";
   };
@@ -42,8 +43,8 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     ./hardware-configuration.nix
     inputs.omarchy-nix.nixosModules.default
-    inputs.determinate.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
+    inputs.determinate.nixosModules.default
     {
       omarchy = {
         full_name = "Moritz Zimmerman";
@@ -53,8 +54,12 @@ nixpkgs.lib.nixosSystem {
 
       home-manager = {
         users."${popcorn.user}" = {
-          imports = [ inputs.omarchy-nix.homeManagerModules.default ];
+          imports = [
+            ./home.nix
+            inputs.omarchy-nix.homeManagerModules.default
+          ];
         };
+        extraSpecialArgs = { inherit pkgs pkgs-unstable popcorn; };
       };
     }
   ];
