@@ -11,6 +11,7 @@ let
     user = "moritzzmn";
     host = "popcorn";
     home-dir = "/home/moritzzmn";
+    dotfile-path = "/home/moritzzmn/.dotfile/";
     editor = "nvim";
     platform = "x86_64-linux";
   };
@@ -42,16 +43,10 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     ./hardware-configuration.nix
-    inputs.omarchy-nix.nixosModules.default
+    ./omarchy.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.determinate.nixosModules.default
     {
-      omarchy = {
-        full_name = "Moritz Zimmerman";
-        email_address = "dinhnhattai.nguyen@hotmail.com";
-        theme = "everforest";
-      };
-
       home-manager = {
         users."${popcorn.user}" = {
           imports = [

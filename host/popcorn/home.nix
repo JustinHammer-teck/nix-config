@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   popcorn,
   ...
 }:
@@ -16,11 +17,10 @@ in
       packages = with pkgs; [
         starship
         bat
-        lazygit
         delta
         just
-        fzf
-        ripgrep
+
+        pkgs-unstable.tree-sitter
 
         iperf
       ];
@@ -29,6 +29,14 @@ in
         EDITOR = "${toString popcorn.editor}";
         HOME_MANAGER = "${pkgs.lib.makeLibraryPath [ pkgs.home-manager ]}";
       };
+      file = {
+	      ".ideavimrc".text = builtins.readFile "${popcorn.dotfile-path}/.ideavimrc";
+	      ".config/nvim" = {
+		source = mkOutOfStoreSymlink "${popcorn.dotfile-path}/nvim";
+		recursive = true;
+	      };
+      };
+     
     };
 
     programs.git.enable = true;

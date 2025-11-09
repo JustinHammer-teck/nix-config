@@ -4,14 +4,7 @@ SOPS_FILE := "secrets.yaml"
 default:
   @just --list
 
-deploy USER HOST:
-    scripts/deploy.sh -u {{USER}} -h {{HOST}}
 
-deploy-xucxich: 
-    just deploy xucxich 192.168.0.133 
-
-deploy-chabo: 
-    just deploy chabo 192.168.0.134
 
 rebuild-pre:
   just update-nix-secrets
@@ -39,15 +32,11 @@ update:
   nix flake update
 
 rebuild-darwin:
-  zsh ./scripts/nix-rebuild.sh
+  zsh ./scripts/darwin-rebuild.sh
 
-rm-rebuild-darwin:
-  sudo nix run nix-darwin/nix-darwin-25.05#darwin-rebuild -- \
-    --option extra-substituters https://install.determinate.systems \
-    --option extra-trusted-public-keys cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM= \
-    --build-host xucxich@192.168.0.133\
-    switch --flake \
-    .#imbp --impure --fallback --show-trace
+rebuild $host:
+  bash ./scripts/nixos-rebuild.sh {{host}}
+
 
 rebuild-update:
   just update
