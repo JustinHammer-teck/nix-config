@@ -44,6 +44,7 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     ./hardware-configuration.nix
     ./omarchy.nix
+    inputs.omarchy-nix.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
     inputs.determinate.nixosModules.default
     {
@@ -54,7 +55,14 @@ nixpkgs.lib.nixosSystem {
             inputs.omarchy-nix.homeManagerModules.default
           ];
         };
-        extraSpecialArgs = { inherit pkgs pkgs-unstable popcorn; };
+        extraSpecialArgs = {
+          inherit
+            pkgs
+            pkgs-unstable
+            popcorn
+            inputs
+            ;
+        };
       };
     }
   ];

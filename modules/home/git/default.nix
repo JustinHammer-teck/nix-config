@@ -7,7 +7,7 @@
 
 with lib;
 let
-  name = "Moritz Zimmermann";
+  name = "Moritz Zimmerman";
   email = "dinhnhattai.nguyen@hotmail.com";
   cfg = config.git;
 in
@@ -16,7 +16,7 @@ in
     enable = mkEnableOption "Git";
   };
   config = mkIf cfg.enable {
-    programs.git = {
+    programs.git = mkDefault {
       enable = true;
       package = pkgs.git;
       userName = name;

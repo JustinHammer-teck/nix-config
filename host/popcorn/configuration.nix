@@ -45,7 +45,11 @@
 
   users.users.moritzzmn = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "docker"
+      "networkmanager"
+    ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
@@ -54,7 +58,6 @@
     ];
   };
 
-
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
@@ -62,8 +65,6 @@
 
     localsend
     tmux
-
-    pkgs-unstable.nixfmt
 
     pkgs-unstable.floorp-bin
     pkgs-unstable.thunderbird-latest
@@ -80,7 +81,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
 
   services.openssh = {
     enable = true;
@@ -112,6 +112,12 @@
   services.logind.extraConfig = ''
     KillUserProcesses=no
   '';
+
+  services.tailscale.enable = true;
+  services.syncthing = {
+    enable = true;
+
+  };
 
   nix = {
     settings = {
