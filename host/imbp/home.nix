@@ -9,7 +9,11 @@ let
   inherit (config.lib.file) mkOutOfStoreSymlink;
 in
 {
-  imports = import ./../../modules/home;
+  imports = [
+    (import ./../../modules/home/zsh/default.nix)
+    (import ./../../modules/home/git/default.nix)
+    (import ./../../modules/home/starship/default.nix)
+  ];
   config = {
     xdg.enable = true;
     home = {
@@ -50,6 +54,11 @@ in
     };
 
     git.enable = true;
+    programs.git = {
+      signing = {
+        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsTUWula6xGju3x3LyEJKxhYDW2BfLvt3wcIjVyY3hC dinhnhattai.nguyen@hotmail.com";
+      };
+    };
 
     programs.zoxide = {
       package = pkgs.zoxide;

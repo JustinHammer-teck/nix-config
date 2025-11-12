@@ -37,5 +37,6 @@
     "betterdisplay"
     "moonlight"
     "wezterm"
+    "syncthing"
   ];
 }

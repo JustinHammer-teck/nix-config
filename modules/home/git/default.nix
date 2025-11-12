@@ -22,7 +22,6 @@ in
       userName = name;
       userEmail = email;
       signing = {
-        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsTUWula6xGju3x3LyEJKxhYDW2BfLvt3wcIjVyY3hC dinhnhattai.nguyen@hotmail.com";
         signByDefault = true;
         format = "ssh";
       };

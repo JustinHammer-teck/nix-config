@@ -15,8 +15,6 @@
     environment = {
       shells = with pkgs; [ zsh ];
       systemPackages = with pkgs; [
-        nixfmt-rfc-style
-        nixd
         just
 
         pkgs-unstable.raycast
