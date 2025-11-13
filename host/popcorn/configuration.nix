@@ -7,6 +7,7 @@
   lib,
   pkgs,
   pkgs-unstable,
+  vars,
   ...
 }:
 
@@ -27,7 +28,7 @@
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   networking.firewall = {
-    enable = false;
+    enable = true;
 
     trustedInterfaces = [
       "tailscale0"
@@ -38,7 +39,10 @@
       22
     ];
 
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    allowedUDPPorts = [
+      53
+      config.services.tailscale.port
+    ];
   };
 
   time.timeZone = "Australia/Sydney";
@@ -113,10 +117,22 @@
     KillUserProcesses=no
   '';
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+  };
+
   services.syncthing = {
     enable = true;
-
+    openDefaultPorts = true;
+    user = "${vars.user}";
+    dataDir = "${vars.home-dir}";
+    extraFlags = [ "--no-default-folder" ];
+    settings.folders = {
+      "docs" = {
+        path = "/home/moritzzmn/sync/docs";
+      };
+    };
   };
 
   nix = {

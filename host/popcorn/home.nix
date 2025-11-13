@@ -2,7 +2,7 @@
   config,
   pkgs,
   pkgs-unstable,
-  popcorn,
+  vars,
   lib,
   ...
 }:
@@ -16,8 +16,8 @@ in
   ];
   home = {
     stateVersion = "25.05";
-    username = "${toString popcorn.user}";
-    homeDirectory = "${toString popcorn.home-dir}";
+    username = "${toString vars.user}";
+    homeDirectory = "${toString vars.home-dir}";
     packages = with pkgs; [
       starship
       bat
@@ -28,18 +28,18 @@ in
     ];
 
     sessionVariables = {
-      EDITOR = "${toString popcorn.editor}";
+      EDITOR = "${toString vars.editor}";
       HOME_MANAGER = "${pkgs.lib.makeLibraryPath [ pkgs.home-manager ]}";
     };
 
     file = {
-      ".ideavimrc".text = builtins.readFile "${popcorn.dotfile-path}/.ideavimrc";
+      ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
       ".config/nvim" = {
-        source = mkOutOfStoreSymlink "${popcorn.dotfile-path}/nvim";
+        source = mkOutOfStoreSymlink "${vars.dotfile-path}/nvim";
         recursive = true;
       };
       ".config/starship" = {
-        source = mkOutOfStoreSymlink "${popcorn.dotfile-path}/starship";
+        source = mkOutOfStoreSymlink "${vars.dotfile-path}/starship";
         recursive = true;
       };
     };

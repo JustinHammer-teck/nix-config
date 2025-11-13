@@ -7,8 +7,10 @@
   programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
+      # C Sharp stuff
       roslyn-nvim
-      nvim-lspconfig
+      rzls-nvim
+
       telescope-fzf-native-nvim
       telescope-nvim
       nvim-treesitter-textobjects

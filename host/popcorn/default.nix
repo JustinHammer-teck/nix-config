@@ -7,7 +7,7 @@
   ...
 }:
 let
-  popcorn = {
+  vars = {
     user = "moritzzmn";
     host = "popcorn";
     home-dir = "/home/moritzzmn";
@@ -16,7 +16,7 @@ let
     platform = "x86_64-linux";
   };
 
-  system = "${popcorn.platform}";
+  system = "${vars.platform}";
 
   pkgs = import nixpkgs {
     inherit system;
@@ -37,7 +37,7 @@ nixpkgs.lib.nixosSystem {
       pkgs
       pkgs-unstable
       lib
-      popcorn
+      vars
       ;
   };
   modules = [
@@ -49,7 +49,7 @@ nixpkgs.lib.nixosSystem {
     inputs.determinate.nixosModules.default
     {
       home-manager = {
-        users."${popcorn.user}" = {
+        users."${vars.user}" = {
           imports = [
             ./home.nix
             inputs.omarchy-nix.homeManagerModules.default
@@ -59,7 +59,7 @@ nixpkgs.lib.nixosSystem {
           inherit
             pkgs
             pkgs-unstable
-            popcorn
+            vars
             inputs
             ;
         };
