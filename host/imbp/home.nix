@@ -1,111 +1,102 @@
-{
-  config,
-  pkgs,
-  pkgs-unstable,
-  vars,
-  ...
-}:
-let
-  inherit (config.lib.file) mkOutOfStoreSymlink;
-in
-{
+{ config, pkgs, pkgs-unstable, vars, ... }:
+let inherit (config.lib.file) mkOutOfStoreSymlink;
+in {
   imports = [
     (import ./../../modules/home/zsh/default.nix)
     (import ./../../modules/home/git/default.nix)
+    (import ./../../modules/home/neovim/default.nix)
     (import ./../../modules/home/starship/default.nix)
   ];
-  config = {
-    xdg.enable = true;
-    home = {
-      stateVersion = "25.05";
-      username = "${toString vars.user}";
-      homeDirectory = "${toString vars.home-dir}";
-      packages = with pkgs; [
-        starship
-        bat
-        lazygit
-        delta
-        just
-        fzf
-        ripgrep
 
-        iperf
+  xdg.enable = true;
+  home = {
+    stateVersion = "25.05";
+    username = "${toString vars.user}";
+    homeDirectory = "${toString vars.home-dir}";
+    packages = with pkgs; [
+      bat
+      lazygit
+      delta
+      just
+      fzf
+      ripgrep
 
-        pkgs-unstable.docker
-        pkgs-unstable.docker-compose
+      tree-sitter
+      nixd
+      nixfmt
 
-        age
-        pkgs-unstable.sops
+      iperf
 
-        tree
+      pkgs-unstable.docker
+      pkgs-unstable.docker-compose
 
-        # Applications
-        pkgs-unstable.thunderbird-latest-unwrapped
-        pkgs-unstable.brave
-        pkgs-unstable.claude-code
-        pkgs-unstable.insomnia
-      ];
+      age
+      pkgs-unstable.sops
 
-      sessionVariables = {
-        EDITOR = "${toString vars.editor}";
-        HOME_MANAGER = "${pkgs.lib.makeLibraryPath [ pkgs.home-manager ]}";
-      };
-      shell.enableZshIntegration = true;
+      tree
+
+      # Applications
+      pkgs-unstable.thunderbird-latest-unwrapped
+      pkgs-unstable.brave
+      pkgs-unstable.claude-code
+      pkgs-unstable.insomnia
+    ];
+
+    sessionVariables = {
+      EDITOR = "${toString vars.editor}";
+      HOME_MANAGER = "${pkgs.lib.makeLibraryPath [ pkgs.home-manager ]}";
     };
+    shell.enableZshIntegration = true;
+  };
 
-    git.enable = true;
-    programs.git = {
-      signing = {
-        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsTUWula6xGju3x3LyEJKxhYDW2BfLvt3wcIjVyY3hC dinhnhattai.nguyen@hotmail.com";
-      };
+  git.enable = true;
+  programs.git = {
+    signing = {
+      key =
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsTUWula6xGju3x3LyEJKxhYDW2BfLvt3wcIjVyY3hC dinhnhattai.nguyen@hotmail.com";
     };
+  };
 
-    programs.zoxide = {
-      package = pkgs.zoxide;
-      enable = true;
-      enableZshIntegration = true;
+  programs.zoxide = {
+    package = pkgs.zoxide;
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.eza = {
+    package = pkgs.eza;
+    enable = true;
+    enableZshIntegration = true;
+    icons = "always";
+    git = true;
+    colors = "always";
+    extraOptions =
+      [ "--group-directories-first" "--long" "--accessed" "--no-time" ];
+  };
+
+  programs.atuin = {
+    enable = true;
+    package = pkgs.atuin;
+    enableZshIntegration = true;
+  };
+
+  terminal.starship.enable = true;
+
+  programs = { shell.zsh.enable = true; };
+
+  home.file = {
+    ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
+    ".config/eza".source = "${vars.dotfile-path}/eza";
+  };
+
+  xdg.configFile = {
+    nvim = {
+      source = mkOutOfStoreSymlink "${vars.dotfile-path}/nvim";
+      recursive = true;
     };
-
-    programs.eza = {
-      package = pkgs.eza;
-      enable = true;
-      enableZshIntegration = true;
-      icons = "always";
-      git = true;
-      colors = "always";
-      extraOptions = [
-        "--group-directories-first"
-        "--long"
-        "--accessed"
-        "--no-time"
-      ];
-    };
-
-    programs.atuin = {
-      enable = true;
-      package = pkgs.atuin;
-      enableZshIntegration = true;
-    };
-
-    programs = {
-      cli.terminal.starship.enable = true;
-      shell.zsh.enable = true;
-    };
-
-    home.file = {
-      ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
-      ".config/eza".source = "${vars.dotfile-path}/eza";
-    };
-
-    xdg.configFile = {
-      nvim = {
-        source = mkOutOfStoreSymlink "${vars.dotfile-path}/nvim";
-        recursive = true;
-      };
-      wezterm = {
-        source = mkOutOfStoreSymlink "${vars.dotfile-path}/wezterm";
-        recursive = true;
-      };
+    wezterm = {
+      source = mkOutOfStoreSymlink "${vars.dotfile-path}/wezterm";
+      recursive = true;
     };
   };
 }

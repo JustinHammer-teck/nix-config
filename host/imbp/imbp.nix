@@ -1,9 +1,5 @@
-{
-  vars,
-  pkgs,
-  ...
-}:
-{
+{ vars, pkgs, ... }: {
+  imports = [ (import ./packages.nix) ];
   system = {
     checks.verifyNixPath = false;
     primaryUser = "${vars.user}";

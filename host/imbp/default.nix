@@ -1,15 +1,4 @@
-{
-  self,
-  inputs,
-  nixpkgs-unstable,
-  nixpkgs,
-  home-manager,
-  darwin,
-  lib,
-  sops-nix,
-  nix-homebrew,
-  ...
-}:
+{ self, inputs, nixpkgs-unstable, nixpkgs, home-manager, darwin, lib, ... }:
 let
   vars = {
     user = "moritzzmn";
@@ -32,49 +21,15 @@ let
     config.allowUnfree = true;
 
   };
-in
-{
+in {
   imbp = darwin.lib.darwinSystem {
     inherit system;
-    specialArgs = {
-      inherit
-        inputs
-        self
-        pkgs
-        pkgs-unstable
-        lib
-        vars
-        ;
-    };
+    specialArgs = { inherit inputs self pkgs pkgs-unstable lib vars; };
     modules = [
       ./imbp.nix
-      ./packages.nix
-      ./../../darwin
-      ./../../darwin/homebrew.nix
-      sops-nix.darwinModules.sops
-      nix-homebrew.darwinModules.nix-homebrew
-      {
-        nix-homebrew = {
-          enable = true;
-          user = "${vars.user}";
-          taps = {
-            "FelixKratz/homebrew-formulae" = inputs.felixkratz-formulae;
-            "homebrew/homebrew-core" = inputs.homebrew-core;
-            "homebrew/homebrew-cask" = inputs.homebrew-cask;
-          };
-          mutableTaps = false;
-          autoMigrate = true;
-        };
-      }
       home-manager.darwinModules.home-manager
       {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.${vars.user} = {
-          imports = [
-            ./home.nix
-          ];
-        };
+        home-manager.users.${vars.user} = { imports = [ ./home.nix ]; };
         home-manager.extraSpecialArgs = { inherit pkgs pkgs-unstable vars; };
       }
     ];

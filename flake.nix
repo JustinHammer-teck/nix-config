@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05"; # Nix Packages (Default)
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
+    nixpkgs-unstable.url =
+      "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
@@ -16,7 +17,6 @@
       url = "github:lnl7/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
@@ -53,58 +53,22 @@
     };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs-unstable,
-      nixpkgs,
-      home-manager,
-      darwin,
-      catppuccin,
-      sops-nix,
-      nix-homebrew,
-      ...
-    }@inputs:
-    {
-      darwinConfigurations = (
-        import ./host/imbp/default.nix {
-          inherit (nixpkgs) lib;
-          inherit
-            self
-            inputs
-            darwin
-            nixpkgs
-            nixpkgs-unstable
-            home-manager
-            catppuccin
-            sops-nix
-            nix-homebrew
-            ;
-        }
-      );
+  outputs = { self, nixpkgs-unstable, nixpkgs, home-manager, darwin
+    , nix-homebrew, ... }@inputs: {
+      darwinConfigurations = (import ./host/imbp/default.nix {
+        inherit (nixpkgs) lib;
+        inherit self inputs darwin nixpkgs nixpkgs-unstable home-manager
+          nix-homebrew;
+      });
 
-      nixosConfigurations.xucxich = (
-        import ./host/xucxich/default.nix {
-          inherit (nixpkgs) lib;
-          inherit
-            self
-            inputs
-            nixpkgs
-            nixpkgs-unstable
-            ;
-        }
-      );
+      nixosConfigurations.xucxich = (import ./host/xucxich/default.nix {
+        inherit (nixpkgs) lib;
+        inherit self inputs nixpkgs nixpkgs-unstable;
+      });
 
-      nixosConfigurations.popcorn = (
-        import ./host/popcorn/default.nix {
-          inherit (nixpkgs) lib;
-          inherit
-            self
-            inputs
-            nixpkgs
-            nixpkgs-unstable
-            ;
-        }
-      );
+      nixosConfigurations.popcorn = (import ./host/popcorn/default.nix {
+        inherit (nixpkgs) lib;
+        inherit self inputs nixpkgs nixpkgs-unstable;
+      });
     };
 }

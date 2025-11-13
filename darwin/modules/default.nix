@@ -1,4 +1,0 @@
-[
-  ./aerospace
-  ./tailscale
-]

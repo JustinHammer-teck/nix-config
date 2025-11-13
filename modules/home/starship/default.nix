@@ -1,18 +1,14 @@
 { config, lib, pkgs, vars, ... }:
 
 with lib;
-let 
-cfg = config.programs.cli.terminal.starship;
+let cfg = config.programs.cli.terminal.starship;
 in {
-  options.programs.cli.terminal.starship = {
-    enable = mkEnableOption "StarShip Prompt ";
-  };
+  options.terminal.starship = { enable = mkEnableOption "StarShip Prompt "; };
   config = mkIf cfg.enable {
     programs.starship = {
       enable = true;
       package = pkgs.starship;
       enableZshIntegration = true;
-      settings = pkgs.lib.importTOML "${vars.dotfile-path}/starship/starship.toml";
     };
   };
 }

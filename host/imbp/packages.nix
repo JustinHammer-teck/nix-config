@@ -1,32 +1,26 @@
-{
-  pkgs,
-  pkgs-unstable,
-  vars,
-  ...
-}:
-{
-  imports = import ./../../darwin/modules;
+{ pkgs, pkgs-unstable, vars, ... }: {
+  imports = [
+    ../../modules/darwin/modules
+    (import ./../../darwin/homebrew.nix)
+    (import ./../../darwin/default.nix)
+  ];
 
-  config = {
+  aerospace.enable = true;
+  tailscale.enable = true;
 
-    aerospace.enable = true;
-    tailscale.enable = true;
+  environment = {
+    shells = with pkgs; [ zsh ];
+    systemPackages = with pkgs; [
+      just
 
-    environment = {
-      shells = with pkgs; [ zsh ];
-      systemPackages = with pkgs; [
-        just
+      pkgs-unstable.raycast
+      pkgs-unstable.neovim
+      pkgs-unstable.localsend
+    ];
 
-        pkgs-unstable.raycast
-        pkgs-unstable.neovim
-        pkgs-unstable.localsend
-      ];
-
-      variables = {
-        NIXD_PATH = "${pkgs.nixd}/bin/nixd";
-        EDITOR = "${vars.editor}";
-        VISUAL = "${vars.terminal}";
-      };
+    variables = {
+      EDITOR = "${vars.editor}";
+      VISUAL = "${vars.terminal}";
     };
   };
 }
