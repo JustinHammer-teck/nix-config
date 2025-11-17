@@ -6,6 +6,7 @@ in {
     (import ./../../modules/home/git/default.nix)
     (import ./../../modules/home/neovim/default.nix)
     (import ./../../modules/home/starship/default.nix)
+    (import ./../../modules/home/direnv/default.nix)
   ];
 
   xdg.enable = true;

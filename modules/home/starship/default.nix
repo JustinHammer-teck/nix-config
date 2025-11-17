@@ -1,7 +1,7 @@
-{ config, lib, pkgs, vars, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
-let cfg = config.programs.cli.terminal.starship;
+let cfg = config.terminal.starship;
 in {
   options.terminal.starship = { enable = mkEnableOption "StarShip Prompt "; };
   config = mkIf cfg.enable {

@@ -1,6 +1,6 @@
 { pkgs, pkgs-unstable, vars, ... }: {
   imports = [
-    ../../modules/darwin/modules
+    (import ../../modules/darwin/default.nix)
     (import ./../../darwin/homebrew.nix)
     (import ./../../darwin/default.nix)
   ];
