@@ -1,16 +1,9 @@
-{
-  self,
-  inputs,
-  nixpkgs,
-  nixpkgs-unstable,
-  lib,
-  ...
-}:
+{ self, inputs, nixpkgs, nixpkgs-unstable, lib, ... }:
 let
   xucxich = {
     user = "xucxich";
     host = "xucxich";
-    editor = "vim";
+    editor = "nvim";
     platform = "x86_64-linux";
   };
 
@@ -23,23 +16,11 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-in
-nixpkgs.lib.nixosSystem {
+in nixpkgs.lib.nixosSystem {
   inherit system;
-  specialArgs = {
-    inherit
-      inputs
-      self
-      pkgs
-      pkgs-unstable
-      lib
-      xucxich
-      ;
-  };
+  specialArgs = { inherit inputs self pkgs pkgs-unstable lib xucxich; };
   modules = with inputs; [
     ./configuration.nix
-    ./hardware-configuration.nix
-    agenix.nixosModules.default
     determinate.nixosModules.default
   ];
 }

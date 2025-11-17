@@ -2,16 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
+    ./incus.nix
     ../../modules/nixos/virtualisation
   ];
 
@@ -21,18 +17,28 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
+    nftables.enable = true;
     hostName = "xucxich";
+    tempAddresses = "disabled";
+    useDHCP = false;
     interfaces.eno2 = {
       useDHCP = true;
-      ipv4.addresses = [
-        {
-          address = "192.168.1.101";
-          prefixLength = 24;
-        }
-      ];
+      ipv4.addresses = [{
+        address = "192.168.1.101";
+        prefixLength = 24;
+      }];
+    };
+    bridges = { inbr0 = { interfaces = [ "eno2" ]; }; };
+
+    interfaces = {
+      inbr0 = {
+        useDHCP = true;
+        macAddress = "a6:3f:8a:0e:bf:19";
+      };
     };
   };
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable =
+    true; # Easiest to use and most distros use this by default.
 
   systemd.coredump.enable = false;
   services.openssh = {
@@ -52,7 +58,8 @@
     extraConfig = ''
       PubkeyAuthentication yes
       ClientAliveInterval 300
-      AllowTcpForwarding no
+
+      AllowTcpForwarding yes
       AllowAgentForwarding no
       MaxAuthTries 3
       TCPKeepAlive yes
@@ -63,15 +70,9 @@
   networking.firewall = {
     enable = false;
 
-    trustedInterfaces = [
-      "tailscale0"
-      "wlo1"
-      "eno2"
-    ];
+    trustedInterfaces = [ "tailscale0" "wlo1" "eno2" ];
 
-    allowedTCPPorts = [
-      22
-    ];
+    allowedTCPPorts = [ 22 ];
 
     allowedUDPPorts = [ config.services.tailscale.port ];
   };
@@ -81,13 +82,7 @@
   users = {
     users.xucxich = {
       isNormalUser = true;
-      extraGroups = [
-        "wheel"
-        "podman"
-      ];
-
-      packages = with pkgs; [
-      ];
+      extraGroups = [ "networkmanager" "wheel" "podman" ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqP1HvcppNVOVZn/B3hd6He1ibPsTisvL16su7k9/7k moritzzmn@imbp"
       ];
@@ -96,11 +91,17 @@
 
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+
+    neovim
+
     wget
     curl
-    htop
+
     git
     tree
+    just
+
+    btop
   ];
 
   programs.neovim = {
@@ -113,12 +114,7 @@
   '';
 
   nix = {
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-    };
+    settings = { experimental-features = [ "nix-command" "flakes" ]; };
     gc = {
       automatic = true;
       options = "--delete-older-than 15d";
@@ -130,9 +126,7 @@
     tailscale = {
       enable = true;
       package = pkgs.tailscale;
-      extraSetFlags = [
-        "--advertise-exit-node"
-      ];
+      extraSetFlags = [ "--advertise-exit-node" ];
       extraUpFlags = [ "--ssh" ];
       useRoutingFeatures = "both";
     };
