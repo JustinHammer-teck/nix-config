@@ -14,6 +14,9 @@ rebuild-post:
 update:
     nix flake update
 
+deploy $host $user:
+    bash ./scripts/deploy.sh host={{ host }} user={{ user }}
+
 rebuild-darwin:
     zsh ./scripts/darwin-rebuild.sh
 
@@ -25,8 +28,8 @@ rebuild-update $host:
     just rebuild  {{ host }}
 
 # Utils
-gc:
-    nix-collect-garbage --delete-older-than 5d
+clean:
+    nix-collect-garbage --delete-older-than 7d
 
 diff:
     git diff ':!flake.lock'

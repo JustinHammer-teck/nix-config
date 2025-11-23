@@ -41,7 +41,6 @@
       "anydesk"
       "betterdisplay"
       "moonlight"
-      "wezterm"
       "syncthing-app"
     ];
   };

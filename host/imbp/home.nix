@@ -5,6 +5,7 @@ in {
     (import ./../../modules/home/zsh/default.nix)
     (import ./../../modules/home/git/default.nix)
     (import ./../../modules/home/neovim/default.nix)
+    (import ./../../modules/home/wezterm/default.nix)
     (import ./../../modules/home/starship/default.nix)
     (import ./../../modules/home/direnv/default.nix)
   ];
@@ -24,7 +25,7 @@ in {
 
       tree-sitter
       nixd
-      nixfmt
+      nixfmt-rfc-style
 
       iperf
 
@@ -82,12 +83,15 @@ in {
   };
 
   terminal.starship.enable = true;
+  terminal.wezterm.enable = true;
 
   programs = { shell.zsh.enable = true; };
 
   home.file = {
     ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
     ".config/eza".source = "${vars.dotfile-path}/eza";
+    ".config/starship.toml".text =
+      builtins.readFile "${vars.dotfile-path}/starship/starship.toml";
   };
 
   xdg.configFile = {
@@ -95,9 +99,9 @@ in {
       source = mkOutOfStoreSymlink "${vars.dotfile-path}/nvim";
       recursive = true;
     };
-    wezterm = {
-      source = mkOutOfStoreSymlink "${vars.dotfile-path}/wezterm";
-      recursive = true;
-    };
+    # wezterm = {
+    #   source = mkOutOfStoreSymlink "${vars.dotfile-path}/wezterm";
+    #   recursive = true;
+    # };
   };
 }
