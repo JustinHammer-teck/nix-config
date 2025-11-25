@@ -25,6 +25,8 @@ in
       just
 
       pkgs-unstable.claude-code
+      pkgs-unstable.docker-buildx
+      pkgs-unstable.libreoffice-qt6-fresh
     ];
 
     sessionVariables = {
@@ -48,10 +50,20 @@ in
 
   git.enable = true;
   programs.git = {
-    signing = lib.mkForce {
+    signing = {
+      signByDefault = false;
+      format = "ssh";
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMKfuyuHdyTNrtlNAcd3ychG6mVQOAUZu15za7KNMQWD dinhnhattai.nguyen@hotmail.com";
     };
   };
+
+  programs.ssh.extraConfig = ''
+    Host github
+    AddKeysToAgent yes
+    Hostname github.com
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/id_github_ed25519
+  '';
 
   wayland.windowManager.hyprland.settings.input.kb_options = lib.mkForce "caps:swapescape";
 

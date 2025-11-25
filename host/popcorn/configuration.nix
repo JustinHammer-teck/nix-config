@@ -15,6 +15,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/virtualisation
+    ./syncthing.nix
   ];
 
   services.virtualisation.podman.enable = false;
@@ -53,7 +54,7 @@
       "wheel"
       "docker"
       "networkmanager"
-    ]; # Enable ‘sudo’ for the user.
+    ];
     packages = with pkgs; [
       tree
     ];
@@ -78,13 +79,39 @@
     pkgs-unstable.jetbrains.rider
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  fonts = {
+    enableDefaultPackages = true;
+
+    packages = with pkgs; [
+      # Nerd Fonts (choose your favorites)
+      nerd-fonts.fira-code
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.droid-sans-mono
+
+      # Chinese fonts (REQUIRED for Chinese characters)
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-emoji
+    ];
+
+    fontconfig = {
+      defaultFonts = {
+        # Nerd Font first, then Chinese font as fallback
+        monospace = [
+          "Droid Sans Mono Nerd Font"
+          "Noto Sans Mono CJK SC" # SC = Simplified Chinese
+        ];
+        sansSerif = [
+          "Noto Sans"
+          "Noto Sans CJK SC"
+        ];
+        serif = [
+          "Noto Serif"
+          "Noto Serif CJK SC"
+        ];
+      };
+    };
+  };
 
   services.openssh = {
     enable = true;
@@ -103,10 +130,10 @@
     extraConfig = ''
       PubkeyAuthentication yes
 
-      ClientAliveCountMax 0
+      ClientAliveCountMax 10
       ClientAliveInterval 300
 
-      AllowTcpForwarding no
+      AllowTcpForwarding yes
       AllowAgentForwarding no
       MaxAuthTries 3
       TCPKeepAlive yes
@@ -119,20 +146,8 @@
 
   services.tailscale = {
     enable = true;
+    package = pkgs-unstable.tailscale;
     openFirewall = true;
-  };
-
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true;
-    user = "${vars.user}";
-    dataDir = "${vars.home-dir}";
-    extraFlags = [ "--no-default-folder" ];
-    settings.folders = {
-      "docs" = {
-        path = "/home/moritzzmn/sync/docs";
-      };
-    };
   };
 
   nix = {
