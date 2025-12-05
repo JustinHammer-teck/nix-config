@@ -1,6 +1,14 @@
-{ config, pkgs, pkgs-unstable, vars, ... }:
-let inherit (config.lib.file) mkOutOfStoreSymlink;
-in {
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  vars,
+  ...
+}:
+let
+  inherit (config.lib.file) mkOutOfStoreSymlink;
+in
+{
   imports = [
     (import ./../../modules/home/zsh/default.nix)
     (import ./../../modules/home/git/default.nix)
@@ -12,7 +20,7 @@ in {
 
   xdg.enable = true;
   home = {
-    stateVersion = "25.05";
+    stateVersion = "25.11";
     username = "${toString vars.user}";
     homeDirectory = "${toString vars.home-dir}";
     packages = with pkgs; [
@@ -36,6 +44,7 @@ in {
       pkgs-unstable.sops
 
       tree
+      ncdu
 
       # Applications
       pkgs-unstable.thunderbird-latest-unwrapped
@@ -52,10 +61,9 @@ in {
   };
 
   git.enable = true;
-  programs.git = {
+  programs.git.settings = {
     signing = {
-      key =
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsTUWula6xGju3x3LyEJKxhYDW2BfLvt3wcIjVyY3hC dinhnhattai.nguyen@hotmail.com";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsTUWula6xGju3x3LyEJKxhYDW2BfLvt3wcIjVyY3hC dinhnhattai.nguyen@hotmail.com";
     };
   };
 
@@ -72,8 +80,13 @@ in {
     icons = "always";
     git = true;
     colors = "always";
-    extraOptions =
-      [ "--group-directories-first" "--long" "--accessed" "--no-time" ];
+    extraOptions = [
+      "-a"
+      "--group-directories-first"
+      "--long"
+      "--accessed"
+      "--no-time"
+    ];
   };
 
   programs.atuin = {
@@ -85,13 +98,14 @@ in {
   terminal.starship.enable = true;
   terminal.wezterm.enable = true;
 
-  programs = { shell.zsh.enable = true; };
+  programs = {
+    shell.zsh.enable = true;
+  };
 
   home.file = {
     ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
     ".config/eza".source = "${vars.dotfile-path}/eza";
-    ".config/starship.toml".text =
-      builtins.readFile "${vars.dotfile-path}/starship/starship.toml";
+    ".config/starship.toml".text = builtins.readFile "${vars.dotfile-path}/starship/starship.toml";
   };
 
   xdg.configFile = {

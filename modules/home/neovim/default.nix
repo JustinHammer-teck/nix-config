@@ -11,6 +11,8 @@
       roslyn-nvim
       rzls-nvim
 
+      luasnip
+
       telescope-fzf-native-nvim
       telescope-nvim
       nvim-treesitter-textobjects
