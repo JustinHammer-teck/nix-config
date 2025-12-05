@@ -23,10 +23,14 @@ in
       bat
       delta
       just
+      ncdu
+
+      pkgs-unstable.hyprshot
 
       pkgs-unstable.claude-code
       pkgs-unstable.docker-buildx
       pkgs-unstable.libreoffice-qt6-fresh
+      pkgs-unstable.tor-browser
     ];
 
     sessionVariables = {
@@ -65,7 +69,9 @@ in
     IdentityFile ~/.ssh/id_github_ed25519
   '';
 
-  wayland.windowManager.hyprland.settings.input.kb_options = lib.mkForce "caps:swapescape";
+  wayland.windowManager.hyprland.settings = {
+    input.kb_options = lib.mkForce "caps:swapescape";
+  };
 
   programs.bash = {
     enable = true;

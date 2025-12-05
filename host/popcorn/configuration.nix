@@ -29,7 +29,7 @@
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   networking.firewall = {
-    enable = true;
+    enable = false;
 
     trustedInterfaces = [
       "tailscale0"
@@ -71,7 +71,6 @@
     localsend
     tmux
 
-    pkgs-unstable.floorp-bin
     pkgs-unstable.thunderbird-latest
     pkgs-unstable.vscodium
 
@@ -135,7 +134,6 @@
 
       AllowTcpForwarding yes
       AllowAgentForwarding no
-      MaxAuthTries 3
       TCPKeepAlive yes
     '';
   };
@@ -159,10 +157,15 @@
     };
     gc = {
       automatic = true;
-      options = "--delete-older-than 15d";
+      options = "--delete-older-than 5d";
+      dates = "weekly";
     };
     optimise.automatic = true;
   };
+  boot.loader.systemd-boot.configurationLimit = 3;
+  # OR for GRUB:
+  # boot.loader.grub.configurationLimit = 3;
+  nix.settings.auto-optimise-store = true;
 
   system.stateVersion = "25.05"; # Did you read the comment?
 }
