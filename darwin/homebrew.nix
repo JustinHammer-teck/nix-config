@@ -1,4 +1,10 @@
-{ config, inputs, vars, ... }: {
+{
+  config,
+  inputs,
+  vars,
+  ...
+}:
+{
   imports = [ inputs.nix-homebrew.darwinModules.nix-homebrew ];
 
   nix-homebrew = {
@@ -25,13 +31,15 @@
       cleanup = "zap";
     };
     taps = (builtins.attrNames config.nix-homebrew.taps);
-    brews = [ "trash" "borders" "libomp" ];
+    brews = [
+      "trash"
+      "borders"
+    ];
     casks = [
       "obsidian"
       "signal"
       "1password"
       "rider"
-      "phpstorm"
       "floorp"
       "zen"
       "vscodium"

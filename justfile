@@ -18,7 +18,7 @@ deploy $host $user:
     bash ./scripts/deploy.sh host={{ host }} user={{ user }}
 
 rebuild-darwin:
-    zsh ./scripts/darwin-rebuild.sh
+    ./scripts/darwin-rebuild.sh
 
 rebuild $host *ARG:
     bash ./scripts/nixos-rebuild.sh {{ host }} {{ ARG }}
@@ -30,6 +30,9 @@ rebuild-update $host:
 # Utils
 clean:
     nix-collect-garbage --delete-older-than 7d
+
+brew-up:
+    brew upgrade --greedy
 
 diff:
     git diff ':!flake.lock'

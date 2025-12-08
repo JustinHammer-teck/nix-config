@@ -1,4 +1,10 @@
-{ pkgs, pkgs-unstable, vars, ... }: {
+{
+  pkgs,
+  pkgs-unstable,
+  vars,
+  ...
+}:
+{
   imports = [
     (import ../../modules/darwin/default.nix)
     (import ./../../darwin/homebrew.nix)
@@ -14,7 +20,6 @@
       just
 
       pkgs-unstable.raycast
-      pkgs-unstable.neovim
       pkgs-unstable.localsend
     ];
 

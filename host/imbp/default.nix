@@ -1,4 +1,13 @@
-{ self, inputs, nixpkgs-unstable, nixpkgs, home-manager, darwin, lib, ... }:
+{
+  self,
+  inputs,
+  nixpkgs-unstable,
+  nixpkgs,
+  home-manager,
+  darwin,
+  lib,
+  ...
+}:
 let
   vars = {
     user = "moritzzmn";
@@ -19,18 +28,35 @@ let
   pkgs-unstable = import nixpkgs-unstable {
     inherit system;
     config.allowUnfree = true;
-
   };
-in {
+in
+{
   imbp = darwin.lib.darwinSystem {
     inherit system;
-    specialArgs = { inherit inputs self pkgs pkgs-unstable lib vars; };
+    specialArgs = {
+      inherit
+        inputs
+        self
+        pkgs
+        pkgs-unstable
+        lib
+        vars
+        ;
+    };
     modules = [
       ./imbp.nix
       home-manager.darwinModules.home-manager
       {
-        home-manager.users.${vars.user} = { imports = [ ./home.nix ]; };
-        home-manager.extraSpecialArgs = { inherit pkgs pkgs-unstable vars; };
+        home-manager = {
+          users.${vars.user} = {
+            imports = [ ./home.nix ];
+
+          };
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          backupFileExtension = "backup";
+          extraSpecialArgs = { inherit pkgs pkgs-unstable vars; };
+        };
       }
     ];
   };

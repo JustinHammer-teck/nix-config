@@ -6,6 +6,7 @@
 {
   programs.neovim = {
     enable = true;
+    package = pkgs.neovim-unwrapped;
     plugins = with pkgs.vimPlugins; [
       # C Sharp stuff
       roslyn-nvim
@@ -56,6 +57,7 @@
       pkgs-unstable.just-lsp
 
       # default formatter & linter
+      pkgs-unstable.hujsonfmt
       pkgs-unstable.nixfmt
       stylua
     ];

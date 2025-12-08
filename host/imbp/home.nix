@@ -10,17 +10,17 @@ let
 in
 {
   imports = [
-    (import ./../../modules/home/zsh/default.nix)
     (import ./../../modules/home/git/default.nix)
     (import ./../../modules/home/neovim/default.nix)
     (import ./../../modules/home/wezterm/default.nix)
     (import ./../../modules/home/starship/default.nix)
     (import ./../../modules/home/direnv/default.nix)
+    (import ./../../modules/home/zsh/default.nix)
   ];
 
   xdg.enable = true;
   home = {
-    stateVersion = "25.11";
+    stateVersion = "25.05";
     username = "${toString vars.user}";
     homeDirectory = "${toString vars.home-dir}";
     packages = with pkgs; [
@@ -61,7 +61,7 @@ in
   };
 
   git.enable = true;
-  programs.git.settings = {
+  programs.git = {
     signing = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsTUWula6xGju3x3LyEJKxhYDW2BfLvt3wcIjVyY3hC dinhnhattai.nguyen@hotmail.com";
     };
@@ -95,17 +95,17 @@ in
     enableZshIntegration = true;
   };
 
-  terminal.starship.enable = true;
   terminal.wezterm.enable = true;
-
-  programs = {
-    shell.zsh.enable = true;
-  };
+  shell.zsh.enable = true;
+  terminal.starship.enable = true;
 
   home.file = {
     ".ideavimrc".text = builtins.readFile "${vars.dotfile-path}/.ideavimrc";
     ".config/eza".source = "${vars.dotfile-path}/eza";
-    ".config/starship.toml".text = builtins.readFile "${vars.dotfile-path}/starship/starship.toml";
+    starship = {
+      text = builtins.readFile "${vars.dotfile-path}/starship/starship.toml";
+      target = "starship.toml";
+    };
   };
 
   xdg.configFile = {
@@ -113,6 +113,7 @@ in
       source = mkOutOfStoreSymlink "${vars.dotfile-path}/nvim";
       recursive = true;
     };
+
     # wezterm = {
     #   source = mkOutOfStoreSymlink "${vars.dotfile-path}/wezterm";
     #   recursive = true;

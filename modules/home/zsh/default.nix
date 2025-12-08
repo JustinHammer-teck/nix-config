@@ -7,16 +7,17 @@
 }:
 with lib;
 let
-  cfg = config.programs.shell.zsh;
+  cfg = config.shell.zsh;
 in
 {
-  options.programs.shell.zsh = {
+  options.shell.zsh = {
     enable = mkEnableOption "zsh";
   };
   config = mkIf cfg.enable {
     programs.zsh = {
       enable = true;
       syntaxHighlighting.enable = true;
+      enableCompletion = true;
       history = {
         append = true;
         ignoreDups = true;
