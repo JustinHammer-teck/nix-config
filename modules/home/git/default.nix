@@ -19,21 +19,19 @@ in
     programs.git = mkDefault {
       enable = true;
       package = pkgs.git;
-      settings = {
-        userName = name;
-        userEmail = email;
-        aliases = {
-          gsw = "git switch";
-          prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-        };
-        extraConfig = {
-          branch.autosetuprebase = "always";
-          color.ui = true;
-          github.user = "JustinHammer-teck";
-          push.default = "tracking";
-          rerere.enabled = true;
-          init.defaultBranch = "main";
-        };
+      userName = name;
+      userEmail = email;
+      aliases = {
+        gsw = "git switch";
+        prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+      };
+      extraConfig = {
+        branch.autosetuprebase = "always";
+        color.ui = true;
+        github.user = "JustinHammer-teck";
+        push.default = "tracking";
+        rerere.enabled = true;
+        init.defaultBranch = "main";
       };
       signing = {
         signByDefault = true;
@@ -45,7 +43,6 @@ in
         ".direnv"
         "result"
       ];
-
     };
   };
 }

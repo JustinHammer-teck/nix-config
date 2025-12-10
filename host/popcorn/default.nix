@@ -46,7 +46,6 @@ nixpkgs.lib.nixosSystem {
     ./omarchy.nix
     inputs.omarchy-nix.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
-    inputs.determinate.nixosModules.default
     {
       home-manager = {
         users."${vars.user}" = {

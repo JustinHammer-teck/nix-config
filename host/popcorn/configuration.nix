@@ -54,6 +54,7 @@
       "wheel"
       "docker"
       "networkmanager"
+      "incus-admin"
     ];
     packages = with pkgs; [
       tree
@@ -90,7 +91,7 @@
       # Chinese fonts (REQUIRED for Chinese characters)
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
-      noto-fonts-emoji
+      noto-fonts-color-emoji
     ];
 
     fontconfig = {
@@ -138,10 +139,6 @@
     '';
   };
 
-  services.logind.extraConfig = ''
-    KillUserProcesses=no
-  '';
-
   services.tailscale = {
     enable = true;
     package = pkgs-unstable.tailscale;
@@ -150,6 +147,13 @@
 
   nix = {
     settings = {
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
       experimental-features = [
         "nix-command"
         "flakes"
@@ -167,5 +171,5 @@
   # boot.loader.grub.configurationLimit = 3;
   nix.settings.auto-optimise-store = true;
 
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 }
