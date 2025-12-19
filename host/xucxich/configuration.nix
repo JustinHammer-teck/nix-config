@@ -37,7 +37,7 @@
       };
     };
   };
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = false; # Disabled - using scripted networking for bridge
 
   systemd.coredump.enable = false;
   services.openssh = {
@@ -72,7 +72,7 @@
     trustedInterfaces = [
       "tailscale0"
       "wlo1"
-      "eno2"
+      "inbr0"
     ];
 
     allowedTCPPorts = [ 22 ];
