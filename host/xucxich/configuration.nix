@@ -2,7 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -15,21 +20,16 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
   networking = {
     nftables.enable = true;
     hostName = "xucxich";
     tempAddresses = "disabled";
     useDHCP = false;
-    interfaces.eno2 = {
-      useDHCP = true;
-      ipv4.addresses = [{
-        address = "192.168.1.101";
-        prefixLength = 24;
-      }];
+    bridges = {
+      inbr0 = {
+        interfaces = [ "eno2" ];
+      };
     };
-    bridges = { inbr0 = { interfaces = [ "eno2" ]; }; };
-
     interfaces = {
       inbr0 = {
         useDHCP = true;
@@ -37,8 +37,7 @@
       };
     };
   };
-  networking.networkmanager.enable =
-    true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   systemd.coredump.enable = false;
   services.openssh = {
@@ -70,7 +69,11 @@
   networking.firewall = {
     enable = false;
 
-    trustedInterfaces = [ "tailscale0" "wlo1" "eno2" ];
+    trustedInterfaces = [
+      "tailscale0"
+      "wlo1"
+      "eno2"
+    ];
 
     allowedTCPPorts = [ 22 ];
 
@@ -82,7 +85,11 @@
   users = {
     users.xucxich = {
       isNormalUser = true;
-      extraGroups = [ "networkmanager" "wheel" "podman" ];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "podman"
+      ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILqP1HvcppNVOVZn/B3hd6He1ibPsTisvL16su7k9/7k moritzzmn@imbp"
       ];
@@ -114,7 +121,12 @@
   '';
 
   nix = {
-    settings = { experimental-features = [ "nix-command" "flakes" ]; };
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
     gc = {
       automatic = true;
       options = "--delete-older-than 15d";
@@ -132,5 +144,5 @@
     };
   };
 
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 }
