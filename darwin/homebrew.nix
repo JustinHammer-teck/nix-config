@@ -40,6 +40,7 @@
       "signal"
       "1password"
       "rider"
+      "intellij-idea"
       "floorp"
       "zen"
       "vscodium"
@@ -50,6 +51,8 @@
       "betterdisplay"
       "moonlight"
       "syncthing-app"
+      "tor-browser"
+      "utm"
     ];
   };
 

@@ -1,8 +1,7 @@
 {
   lib,
   config,
-  vars,
-  pkgs,
+  pkgs-unstable,
   ...
 }:
 with lib;
@@ -16,6 +15,7 @@ in
   config = mkIf cfg.enable {
     programs.zsh = {
       enable = true;
+      package = pkgs-unstable.zsh;
       syntaxHighlighting.enable = true;
       enableCompletion = true;
       history = {
