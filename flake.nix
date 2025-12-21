@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11"; # Nix Packages (Default)
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix Packages
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -52,6 +53,7 @@
       self,
       nixpkgs-unstable,
       nixpkgs,
+      nixos-hardware,
       home-manager,
       darwin,
       nix-homebrew,
@@ -69,6 +71,19 @@
             nixpkgs-unstable
             home-manager
             nix-homebrew
+            ;
+        }
+      );
+
+     nixosConfigurations.saber = (
+        import ./host/saber/default.nix {
+          inherit (nixpkgs) lib;
+          inherit
+            self
+            inputs
+            nixpkgs
+            nixpkgs-unstable
+      	    nixos-hardware
             ;
         }
       );
