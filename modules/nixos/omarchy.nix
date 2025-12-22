@@ -10,7 +10,10 @@
     email_address = "dinhnhattai.nguyen@hotmail.com";
     theme = "everforest";
     exclude_packages = with pkgs; [
+      vscode
+      spotify
       typora
+      dropbox
     ];
     quick_app_bindings = [
       "SUPER, slash, exec, $passwordManager --ozone-platform=wayland --enable-features=UseOzonePlatform"

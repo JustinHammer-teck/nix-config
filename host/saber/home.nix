@@ -26,12 +26,11 @@ in
       just
       ncdu
 
-      pkgs-unstable.hyprshot
+      pkgs-unstable.floorp-bin
 
+      pkgs-unstable.hyprshot
       pkgs-unstable.claude-code
-      pkgs-unstable.docker-buildx
       pkgs-unstable.libreoffice-qt6-fresh
-      pkgs-unstable.tor-browser
     ];
 
     sessionVariables = {

@@ -6,16 +6,18 @@
   config,
   lib,
   pkgs,
+  pkgs-unstable,
+  vars,
   ...
 }:
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./t2-module.nix
-    ./laptop.nix
-    ./../../modules/nixos/omarchy/default.nix
+    ../../machines/laptop/default.nix
+    ../../machines/t2-mac/default.nix
+    ../../modules/nixos/omarchy.nix
+    ../../modules/nixos/tailscale.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -24,7 +26,8 @@
     efi.efiSysMountPoint = "/boot";
     efi.canTouchEfiVariables = true;
   };
-  networking.hostName = "saber"; # Define your hostname.
+
+  networking.hostName = "${vars.host}"; # Define your hostname.
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager = {
     enable = true;
@@ -42,7 +45,6 @@
       };
     };
   };
-
   # Set your time zone.
   time.timeZone = "Australia/Sydney";
 
@@ -163,16 +165,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.11"; # Did you read the comment?
-
-  hardware.firmware = [
-    (pkgs.stdenvNoCC.mkDerivation (final: {
-      name = "brcm-firmware";
-      src = ./firmware/brcm;
-      dontUnpack = true;
-      installPhase = ''
-        mkdir -p $out/lib/firmware/brcm
-        cp ${final.src}/* "$out/lib/firmware/brcm"
-      '';
-    }))
-  ];
 }
