@@ -4,6 +4,9 @@ SOPS_FILE := "secrets.yaml"
 default:
     @just --list
 
+generations:
+    sudo nix-env --profile /nix/var/nix/profiles/system --list-generations
+
 rebuild-pre:
     just update-nix-secrets
     git add *.nix

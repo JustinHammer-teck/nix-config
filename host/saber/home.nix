@@ -68,11 +68,6 @@ in
     IdentitiesOnly yes
     IdentityFile ~/.ssh/id_github_ed25519
   '';
-
-  wayland.windowManager.hyprland.settings = {
-    input.kb_options = lib.mkForce "caps:swapescape";
-  };
-
   programs.bash = {
     enable = true;
   };

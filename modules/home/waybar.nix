@@ -5,6 +5,16 @@
   ...
 }:
 {
+
+  wayland.windowManager.hyprland.settings = {
+    input = {
+      kb_options = lib.mkForce "caps:swapescape";
+      touchpad = lib.mkForce {
+        natural_scroll = true;
+      };
+    };
+  };
+
   programs.waybar = lib.mkForce {
     enable = true;
     settings = [

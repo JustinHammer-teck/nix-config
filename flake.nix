@@ -36,7 +36,7 @@
     };
 
     omarchy-nix = {
-      url = "github:henrysipp/omarchy-nix";
+      url = "github:JustinHammer-teck/omarchy-nix/e0ef5529e2cf7ab0e61148f1f346ebfd28bfce52";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
@@ -75,7 +75,7 @@
         }
       );
 
-     nixosConfigurations.saber = (
+      nixosConfigurations.saber = (
         import ./host/saber/default.nix {
           inherit (nixpkgs) lib;
           inherit
@@ -83,7 +83,7 @@
             inputs
             nixpkgs
             nixpkgs-unstable
-      	    nixos-hardware
+            nixos-hardware
             ;
         }
       );
