@@ -10,7 +10,8 @@
   vars,
   ...
 }:
-
+let
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -53,12 +54,28 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
   # console = {
   #   font = "Lat2-Terminus16";
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.inputMethod = {
+    enable = true;
+    type = "ibus";
+    ibus.engines = [
+      pkgs-unstable.ibus-engines.bamboo
+    ];
+  };
+
+  environment.sessionVariables = {
+    GTK_IM_MODULE = "ibus";
+    QT_IM_MODULE = "ibus";
+    XMODIFIERS = "@im=ibus";
+    INPUT_METHOD = "ibus";
+    SDL_IM_MODULE = "ibus";
+  };
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;

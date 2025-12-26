@@ -9,6 +9,10 @@
     "hci_bcm4377"
   ];
 
+  # Disable bluetooth for stability of the T2-Mac system
+  hardware.bluetooth.enable = false;
+  services.blueman.enable = false;
+
   systemd.services."suspend-fix-t2" = {
     enable = true;
     unitConfig = {
