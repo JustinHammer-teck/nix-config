@@ -20,15 +20,6 @@
             "ipv6.address" = "none";
           };
         }
-        {
-          name = "vlan100";
-          type = "bridge";
-          config = {
-            "bridge.external_interfaces" = "eno2-vlan100";
-            "ipv4.address" = "none";
-            "ipv6.address" = "none";
-          };
-        }
       ];
 
       storage_pools = [
@@ -62,7 +53,8 @@
           devices = {
             eth0 = {
               name = "eth0";
-              network = "vlan100";
+              nictype = "bridged";
+              parent = "vlan100br";
               type = "nic";
             };
             root = {
@@ -80,5 +72,5 @@
   users.users.xucxich.extraGroups = [ "incus-admin" ];
 
   # Networking: allow Incus bridge traffic
-  networking.firewall.trustedInterfaces = [ "incusbr0" ];
+  networking.firewall.trustedInterfaces = [ "incusbr0" "vlan100br" ];
 }
