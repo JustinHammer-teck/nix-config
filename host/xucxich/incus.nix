@@ -22,9 +22,11 @@
         }
         {
           name = "vlan100";
-          type = "physical";
+          type = "bridge";
           config = {
-            parent = "vlan100br";
+            "bridge.external_interfaces" = "eno2-vlan100";
+            "ipv4.address" = "none";
+            "ipv6.address" = "none";
           };
         }
       ];
