@@ -6,6 +6,7 @@
   config,
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 }:
 
@@ -150,7 +151,7 @@
   services = {
     tailscale = {
       enable = true;
-      package = pkgs.tailscale;
+      package = pkgs-unstable.tailscale;
       extraSetFlags = [ "--advertise-exit-node" ];
       extraUpFlags = [ "--ssh" ];
       useRoutingFeatures = "both";
