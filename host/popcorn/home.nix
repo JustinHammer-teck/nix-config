@@ -25,7 +25,13 @@ in
       just
       ncdu
 
+      jq
+      obs-studio
+      anydesk
+
       pkgs-unstable.hyprshot
+
+      pkgs-unstable.floorp-bin
 
       pkgs-unstable.claude-code
       pkgs-unstable.docker-buildx
@@ -54,7 +60,7 @@ in
 
   git.enable = true;
   programs.git = {
-    signing = {
+    signing = lib.mkForce {
       signByDefault = false;
       format = "ssh";
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMKfuyuHdyTNrtlNAcd3ychG6mVQOAUZu15za7KNMQWD dinhnhattai.nguyen@hotmail.com";
@@ -70,7 +76,7 @@ in
   '';
 
   wayland.windowManager.hyprland.settings = {
-    input.kb_options = lib.mkForce "caps:swapescape";
+    input.kb_options = lib.mkForce "caps:swapescape, altwin:swap_alt_win";
   };
 
   programs.bash = {

@@ -15,8 +15,11 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/nixos/virtualisation
-    ./syncthing.nix
+    ../../modules/nixos/omarchy.nix
+    ../../modules/nixos/fonts.nix
   ];
+
+  omarchy.hyprlock_wallpaper = lib.mkForce ../../assets/wallpapers/needing-space.jpg;
 
   services.virtualisation.podman.enable = false;
 
@@ -75,43 +78,9 @@
     pkgs-unstable.thunderbird-latest
     pkgs-unstable.vscodium
 
-    pkgs-unstable.jetbrains.pycharm-professional
+    pkgs-unstable.jetbrains.pycharm
     pkgs-unstable.jetbrains.rider
   ];
-
-  fonts = {
-    enableDefaultPackages = true;
-
-    packages = with pkgs; [
-      # Nerd Fonts (choose your favorites)
-      nerd-fonts.fira-code
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.droid-sans-mono
-
-      # Chinese fonts (REQUIRED for Chinese characters)
-      noto-fonts-cjk-sans
-      noto-fonts-cjk-serif
-      noto-fonts-color-emoji
-    ];
-
-    fontconfig = {
-      defaultFonts = {
-        # Nerd Font first, then Chinese font as fallback
-        monospace = [
-          "Droid Sans Mono Nerd Font"
-          "Noto Sans Mono CJK SC" # SC = Simplified Chinese
-        ];
-        sansSerif = [
-          "Noto Sans"
-          "Noto Sans CJK SC"
-        ];
-        serif = [
-          "Noto Serif"
-          "Noto Serif CJK SC"
-        ];
-      };
-    };
-  };
 
   services.openssh = {
     enable = true;

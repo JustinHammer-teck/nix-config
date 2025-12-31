@@ -43,7 +43,6 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     ./hardware-configuration.nix
-    ./omarchy.nix
     inputs.omarchy-nix.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
     {
