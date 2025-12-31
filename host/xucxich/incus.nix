@@ -20,6 +20,13 @@
             "ipv6.address" = "none";
           };
         }
+        {
+          name = "vlan100";
+          type = "physical";
+          config = {
+            parent = "vlan100br";
+          };
+        }
       ];
 
       storage_pools = [
@@ -39,6 +46,21 @@
             eth0 = {
               name = "eth0";
               network = "incusbr0";
+              type = "nic";
+            };
+            root = {
+              path = "/";
+              pool = "default";
+              type = "disk";
+            };
+          };
+        }
+        {
+          name = "vlan100";
+          devices = {
+            eth0 = {
+              name = "eth0";
+              network = "vlan100";
               type = "nic";
             };
             root = {

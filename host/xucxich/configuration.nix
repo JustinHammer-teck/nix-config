@@ -25,15 +25,27 @@
     hostName = "xucxich";
     tempAddresses = "disabled";
     useDHCP = false;
+    vlans = {
+      eno2-vlan100 = {
+        id = 100;
+        interface = "eno2";
+      };
+    };
     bridges = {
       inbr0 = {
         interfaces = [ "eno2" ];
+      };
+      vlan100br = {
+        interfaces = [ "eno2-vlan100" ];
       };
     };
     interfaces = {
       inbr0 = {
         useDHCP = true;
         macAddress = "a6:3f:8a:0e:bf:19";
+      };
+      vlan100br = {
+        useDHCP = false;
       };
     };
   };
@@ -73,6 +85,7 @@
       "tailscale0"
       "wlo1"
       "inbr0"
+      "vlan100br"
     ];
 
     allowedTCPPorts = [ 22 ];
