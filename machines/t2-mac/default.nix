@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
@@ -10,8 +11,8 @@
   ];
 
   # Disable bluetooth for stability of the T2-Mac system
-  hardware.bluetooth.enable = false;
-  services.blueman.enable = false;
+  hardware.bluetooth.enable = lib.mkForce false;
+  services.blueman.enable = lib.mkForce false;
 
   systemd.services."suspend-fix-t2" = {
     enable = true;

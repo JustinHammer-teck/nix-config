@@ -43,8 +43,6 @@ nixpkgs.lib.nixosSystem {
       ;
   };
   modules = [
-    ./nix/substituter.nix
-
     ./configuration.nix
 
     nixos-hardware.nixosModules.apple-t2
