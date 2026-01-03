@@ -53,8 +53,7 @@
           devices = {
             eth0 = {
               name = "eth0";
-              nictype = "bridged";
-              parent = "vlan100br";
+              network = "vlan100br";
               type = "nic";
             };
             root = {

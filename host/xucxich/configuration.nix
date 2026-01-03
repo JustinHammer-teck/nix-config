@@ -46,7 +46,7 @@
         macAddress = "a6:3f:8a:0e:bf:19";
       };
       vlan100br = {
-        useDHCP = false;
+        useDHCP = true;
       };
     };
   };
@@ -113,7 +113,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 
-    neovim
+    pkgs-unstable.neovim
 
     wget
     curl
@@ -122,6 +122,8 @@
     tree
     just
 
+    pkgs-unstable.butane
+
     btop
   ];
 
@@ -129,10 +131,6 @@
     enable = true;
     defaultEditor = true;
   };
-
-  services.logind.extraConfig = ''
-    KillUserProcesses=no
-  '';
 
   nix = {
     settings = {
@@ -152,7 +150,7 @@
     tailscale = {
       enable = true;
       package = pkgs-unstable.tailscale;
-      extraSetFlags = [ "--advertise-exit-node" ];
+      extraSetFlags = [ "--advertise-exit-node" "--advertise-routes=10.10.20.0/24"];
       extraUpFlags = [ "--ssh" ];
       useRoutingFeatures = "both";
     };
