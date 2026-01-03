@@ -48,6 +48,21 @@
             };
           };
         }
+        {
+          name = "vlan100";
+          devices = {
+            eth0 = {
+              name = "eth0";
+              network = "vlan100br";
+              type = "nic";
+            };
+            root = {
+              path = "/";
+              pool = "default";
+              type = "disk";
+            };
+          };
+        }
       ];
     };
   };
@@ -56,5 +71,5 @@
   users.users.xucxich.extraGroups = [ "incus-admin" ];
 
   # Networking: allow Incus bridge traffic
-  networking.firewall.trustedInterfaces = [ "incusbr0" ];
+  networking.firewall.trustedInterfaces = [ "incusbr0" "vlan100br" ];
 }

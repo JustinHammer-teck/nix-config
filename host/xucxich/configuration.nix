@@ -6,6 +6,7 @@
   config,
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 }:
 
@@ -25,15 +26,27 @@
     hostName = "xucxich";
     tempAddresses = "disabled";
     useDHCP = false;
+    vlans = {
+      eno2-vlan100 = {
+        id = 100;
+        interface = "eno2";
+      };
+    };
     bridges = {
       inbr0 = {
         interfaces = [ "eno2" ];
+      };
+      vlan100br = {
+        interfaces = [ "eno2-vlan100" ];
       };
     };
     interfaces = {
       inbr0 = {
         useDHCP = true;
         macAddress = "a6:3f:8a:0e:bf:19";
+      };
+      vlan100br = {
+        useDHCP = true;
       };
     };
   };
@@ -73,6 +86,7 @@
       "tailscale0"
       "wlo1"
       "inbr0"
+      "vlan100br"  # NixOS-managed bridge for VLAN 100
     ];
 
     allowedTCPPorts = [ 22 ];
@@ -99,7 +113,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 
-    neovim
+    pkgs-unstable.neovim
 
     wget
     curl
@@ -108,6 +122,8 @@
     tree
     just
 
+    pkgs-unstable.butane
+
     btop
   ];
 
@@ -115,10 +131,6 @@
     enable = true;
     defaultEditor = true;
   };
-
-  services.logind.extraConfig = ''
-    KillUserProcesses=no
-  '';
 
   nix = {
     settings = {
@@ -137,8 +149,8 @@
   services = {
     tailscale = {
       enable = true;
-      package = pkgs.tailscale;
-      extraSetFlags = [ "--advertise-exit-node" ];
+      package = pkgs-unstable.tailscale;
+      extraSetFlags = [ "--advertise-exit-node" "--advertise-routes=10.10.20.0/24"];
       extraUpFlags = [ "--ssh" ];
       useRoutingFeatures = "both";
     };
