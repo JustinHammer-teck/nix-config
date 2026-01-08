@@ -793,17 +793,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1767845215,
-        "narHash": "sha256-G1ZeHRJ+kWDucXWrTMOWqjmN7Hktx9QfPu3ni22WbdI=",
+        "lastModified": 1767846300,
+        "narHash": "sha256-FiUytyNo8Wx4k1NT7RzRc0AXqVl+299bsyMeWk+8ODM=",
         "owner": "JustinHammer-teck",
         "repo": "omarchy-nix",
-        "rev": "7e69e3ad8f99d1ce1441b48677d348d59fddd086",
+        "rev": "ce6f280c03e5878e16966242fe8be1ebc682ef05",
         "type": "github"
       },
       "original": {
         "owner": "JustinHammer-teck",
         "repo": "omarchy-nix",
-        "rev": "7e69e3ad8f99d1ce1441b48677d348d59fddd086",
+        "rev": "ce6f280c03e5878e16966242fe8be1ebc682ef05",
         "type": "github"
       }
     },

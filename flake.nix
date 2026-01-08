@@ -36,7 +36,7 @@
     };
 
     omarchy-nix = {
-      url = "github:JustinHammer-teck/omarchy-nix/7e69e3ad8f99d1ce1441b48677d348d59fddd086";
+      url = "github:JustinHammer-teck/omarchy-nix/ce6f280c03e5878e16966242fe8be1ebc682ef05";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.home-manager.follows = "home-manager";
     };

@@ -9,6 +9,9 @@
   # to do a hard reset is handled by your machine’s BIOS/EFI and thus still possible.
   services.logind.settings.Login = {
     HandlePowerKey = "ignore";
+    HandleLidSwitch = "lock";
+    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitchDocked = "ignore";
   };
 
   services.tlp = {

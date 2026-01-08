@@ -27,6 +27,7 @@ in
       ncdu
 
       wine
+      obs-studio
 
       pkgs-unstable.dbeaver-bin
       pkgs-unstable.floorp-bin
