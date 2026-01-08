@@ -33,6 +33,7 @@ rebuild-update $host:
 # Utils
 clean:
     nix-collect-garbage --delete-older-than 7d
+    nix-env --delete-generations +3 -p /nix/var/nix/profiles/system
 
 brew-up:
     brew upgrade --greedy

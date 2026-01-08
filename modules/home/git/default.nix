@@ -16,28 +16,33 @@ in
     enable = mkEnableOption "Git";
   };
   config = mkIf cfg.enable {
-    programs.git = mkDefault {
+    programs.git = mkForce {
       enable = true;
       package = pkgs.git;
+      maintenance.enable = true;
       settings = {
-        userName = name;
-        userEmail = email;
+        user.name = "${toString name}";
+        user.email = "${toString email}";
         extraConfig = {
           branch.autosetuprebase = "always";
           color.ui = true;
           github.user = "JustinHammer-teck";
           push.default = "tracking";
           rerere.enabled = true;
-          init.defaultBranch = "main";
+          init.defaultBranch = "master";
+          "gpg \"ssh\"".program = "${pkgs._1password-gui}/share/1password/op-ssh-sign";
         };
-        aliases = {
+        alias = {
           gsw = "git switch";
           prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
         };
+        gpg = {
+          format = "ssh";
+        };
+
       };
       signing = {
         signByDefault = true;
-        format = "ssh";
       };
       ignores = [
         ".DS_Store"

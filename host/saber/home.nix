@@ -26,13 +26,16 @@ in
       just
       ncdu
 
+      wine
+
+      pkgs-unstable.dbeaver-bin
       pkgs-unstable.floorp-bin
 
       pkgs-unstable.hyprshot
       pkgs-unstable.claude-code
       pkgs-unstable.libreoffice-qt6-fresh
     ];
-
+    shell.enableZshIntegration = true;
     sessionVariables = {
       EDITOR = "${toString vars.editor}";
       HOME_MANAGER = "${pkgs.lib.makeLibraryPath [ pkgs.home-manager ]}";
@@ -54,19 +57,25 @@ in
 
   git.enable = true;
   programs.git = {
-    signing = lib.mkForce {
-      signByDefault = false;
-      format = "ssh";
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMKfuyuHdyTNrtlNAcd3ychG6mVQOAUZu15za7KNMQWD dinhnhattai.nguyen@hotmail.com";
+    signing = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH9ciOGgb5XOllKsWI6EkPiMrvENn+oXFTAxG9QGUjwB";
     };
   };
 
+  programs.fzf = {
+    enableZshIntegration = true;
+  };
+
   programs.ssh.extraConfig = ''
+    Host *
+      IdentityAgent ~/.1password/agent.sock
+      SetEnv TERM=xterm-256color
+
     Host github
-    AddKeysToAgent yes
-    Hostname github.com
-    IdentitiesOnly yes
-    IdentityFile ~/.ssh/id_github_ed25519
+      AddKeysToAgent yes
+      Hostname github.com
+      IdentitiesOnly yes
+      IdentityFile ~/.ssh/id_github_ed25519
   '';
   programs.bash = {
     enable = true;

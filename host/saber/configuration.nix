@@ -20,6 +20,7 @@ in
     ../../machines/t2-mac/default.nix
     ../../modules/nixos/omarchy.nix
     ../../modules/nixos/tailscale.nix
+    ./game.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -30,6 +31,7 @@ in
   };
 
   networking.hostName = "${vars.host}"; # Define your hostname.
+  networking.extraHosts = builtins.readFile "${vars.home-dir}/.config/extrahosts";
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager = {
     enable = true;
@@ -76,6 +78,8 @@ in
     XMODIFIERS = "@im=ibus";
     INPUT_METHOD = "ibus";
     SDL_IM_MODULE = "ibus";
+
+    NIIXOS_OZONE_WL = "1";
   };
 
   # Enable the X11 windowing system.
@@ -110,8 +114,17 @@ in
     packages = with pkgs; [
       tree
     ];
+    shell = pkgs.zsh;
   };
 
+  programs.zsh = {
+    enable = true;
+    enableBashCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+  };
+
+  services.fwupd.enable = true;
   # programs.firefox.enable = true;
 
   # List packages installed in system profile.
@@ -125,6 +138,7 @@ in
     just
   ];
 
+  programs.ssh.startAgent = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -157,9 +171,17 @@ in
       ];
       auto-optimise-store = true;
 
-      inherit substituters;
-      trusted-substituters = substituters;
-      trusted-public-keys = [ "cache.soopy.moe-1:0RZVsQeR+GOh0VQI9rvnHz55nVXkFardDqfm4+afjPo=" ];
+      trusted-substituters = [
+        "https://cache.soopy.moe"
+        "https://hyprland.cachix.org"
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org"
+      ];
+      trusted-public-keys = [
+        "cache.soopy.moe-1:0RZVsQeR+GOh0VQI9rvnHz55nVXkFardDqfm4+afjPo="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
     };
     gc = {
       automatic = true;
