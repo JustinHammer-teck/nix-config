@@ -30,10 +30,9 @@ rebuild-update $host:
     just update
     just rebuild  {{ host }}
 
-# Utils
 clean:
-    nix-collect-garbage --delete-older-than 7d
     nix-env --delete-generations +3 -p /nix/var/nix/profiles/system
+    nix-collect-garbage --delete-older-than 7d
 
 brew-up:
     brew upgrade --greedy

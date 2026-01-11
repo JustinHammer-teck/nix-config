@@ -26,7 +26,6 @@ in
       just
       ncdu
 
-      wine
       obs-studio
 
       pkgs-unstable.dbeaver-bin

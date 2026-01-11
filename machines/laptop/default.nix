@@ -11,7 +11,7 @@
     HandlePowerKey = "ignore";
     HandleLidSwitch = "lock";
     HandleLidSwitchExternalPower = "lock";
-    HandleLidSwitchDocked = "ignore";
+    HandleLidSwitchDocked = "lock";
   };
 
   services.tlp = {

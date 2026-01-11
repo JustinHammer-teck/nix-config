@@ -20,7 +20,6 @@ in
     ../../machines/t2-mac/default.nix
     ../../modules/nixos/omarchy.nix
     ../../modules/nixos/tailscale.nix
-    ./game.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
